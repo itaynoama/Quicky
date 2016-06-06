@@ -22,8 +22,9 @@ var stepsSchema = new schema({
 });
 
 var timerSchema = new schema({
-	kind:String,
-	time:Number
+	preperation:Number,
+	cooking:Number,
+	total:Number
 });
 
 var recipeSchema = new schema({
@@ -36,7 +37,7 @@ var recipeSchema = new schema({
 		main:[subIngredientsSchema]
 	},
 	Steps:[stepsSchema],
-	timers:[timerSchema],
+	timers:timerSchema,
 	imageUrl:String,
 	likes:Number,
 	modified:Boolean

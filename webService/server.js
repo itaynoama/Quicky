@@ -15,6 +15,10 @@ app.use(function(req, res, next) {
 });
 
 app.get('/admin/getUnmodified', recipesController.getUnmodifiedRecipes);
+
+app.get('/admin/getModified/:time', function(req, res) {
+	recipesController.getModifiedRecipes(req.params.time);
+})
 //app.get('/ws_todo/saveActionData', todoAction.saveData);
 app.listen(port);
 console.log('listening on port 3000');
