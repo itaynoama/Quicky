@@ -16,11 +16,22 @@ exports.getUnmodifiedRecipes = function() {
 
 exports.getModifiedRecipes = function(time) {
 	var query = recipes.find();
-	query.where('timers.total', time).select('-_id');
+	query.where('timers.total', time).select('-_id').select('-timers._id');
 	query.exec(function(err, docs) {
 		var json = JSON.stringify(docs, null, 4);
 		var parse = JSON.parse(json);
 		console.log(json);
 		console.log(parse);
 	})
+}
+
+exports.updateSteps = function(recipeName, steps) {
+	var query = recipes.find();
+	query.where('name', recipeName);
+	query.exec(function(err, doc) {
+		doc.set('steps', steps);
+		doc.save(function(err) {
+			if (err) console.log("failed to update " + recipeName + " steps");
+		});
+	});
 }

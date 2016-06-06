@@ -28,7 +28,7 @@ var timerSchema = new schema({
 });
 
 var recipeSchema = new schema({
-	name: {type:String, required:true, unique:true},
+	name: {type:String, required:true, index:1, unique:true},
 	description: {type:String, required:true},
 	category: {type:String, required:true},
 	features: String,
