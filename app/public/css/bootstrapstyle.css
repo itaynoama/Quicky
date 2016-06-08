@@ -1,0 +1,11 @@
+.submit {
+    float: right;
+    margin-right: 10%;
+}
+.col-sm-6.col-md-4 {
+    width: 20%;
+    margin-left: 3%;
+}
+.thumbnail > img {
+    height: 300px !important;
+}

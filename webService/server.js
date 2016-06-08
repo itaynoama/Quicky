@@ -20,7 +20,7 @@ app.get('/admin/getModified/:time', function(req, res) {
 	recipesController.getModifiedRecipes(req.params.time);
 });
 
-app.get('admin/updateSteps/:recipeName/:steps', function(req, res) {
+app.set('admin/updateSteps/:recipeName/:steps', function(req, res) {
 	recipesController.updateSteps(req.params.recipeName, req.params.steps);
 })
 //app.get('/ws_todo/saveActionData', todoAction.saveData);

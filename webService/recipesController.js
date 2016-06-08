@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var recipes = require('./recipeSchema.js');
 
-exports.getUnmodifiedRecipes = function() {
+exports.getUnmodifiedRecipes = function(req, res) {
 	var query = recipes.find();
 	query.where('modified', false).select('-_id');
 	query.exec(function(err, docs) {
@@ -11,6 +11,7 @@ exports.getUnmodifiedRecipes = function() {
 		var parse = JSON.parse(json);
 		console.log(parse);
 		console.log(parse[0].ingredients[0].side);
+        res.json(docs);
 	});
 }
 
