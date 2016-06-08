@@ -1,38 +1,81 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="quickyApp">
+<html lang="en" ng-app="quicky">
 <head>
     <meta charset="UTF-8">
     <title>Quicky App</title>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+<!--    <link rel="stylesheet" type="text/css"  href="../css/style.css">-->
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
 <body ng-controller="quickyCtrl">
    <div class="page-header">
-       <h1>Admin</h1>
+       <h1>Admin {{name}}'s</h1>
    </div>
+   <h2>Preparation Steps:</h2>
+<!--
+   <div class="form-inline">
+	  <div class="form-group" style="width:80%">
+		<input type="text" class="form-control" placeholder="description" style="width:100%" ng-model="description">
+	  </div>
+	  <div class="form-group">
+		<input type="number" class="form-control" placeholder="time(min)" ng-model="time">
+	  </div>
+	  <button type="submit" class="btn btn-default" ng-click="addNewItem(description, time)">Add</button>
+	</div>
+-->
    <div class="panel">
-       <div class="input-group">
-           <input class="form-control" ng-model="actionText">
-           <span class="input-group-btn">
-               <button class="btn btn-default" ng-click="addNewItem(actionText,actionTime)">Add</button>
-           </span>
-       </div>
-       <table class="table table-striped">
-           <thead>
-               <tr>
-                   <th>Description</th>
-                   <th>Time</th>
-               </tr>
-           </thead>
-           <tbody>
-               <tr ng-repeat="step in steps">
-                   <td>{{step.description}}</td>
-                   <td><input type="text"></td>
-               </tr>
-           </tbody>
-       </table>
+       <div class="form-inline">
+	  <div class="form-group" style="width:60%">
+		<input type="text" class="form-control" placeholder="description" style="width:100%" ng-model="prepare">
+	  </div>
+	  <div class="form-group">
+		<input type="number" class="form-control" placeholder="time(min)" ng-model="prepTime">
+	  </div>
+	  <button type="submit" class="btn btn-default" ng-click="addPreparationSteps(prepare, prepTime)">Add</button>
+	</div>
+	   <table class="table table-striped">
+		   <thead>
+			   <tr>
+				   <th>Description</th>
+				   <th>Time</th>
+			   </tr>
+		   </thead>
+		   <tbody>
+			   <tr ng-repeat="step in preparation">
+				   <td>{{step.action}}</td>
+				   <td>{{step.time}}</td>
+			   </tr>
+		   </tbody>
+	   </table>
     </div>
-   <script src="/app/public/js/lib/angular/angular.min.js"></script>
-   <script src="/app/public/js/appController.js"></script>
+    <br>
+    <h2>Cooking Steps:</h2>
+    <div class="panel">
+       <div class="form-inline">
+	  <div class="form-group" style="width:60%">
+		<input type="text" class="form-control" placeholder="description" style="width:100%" ng-model="toCook">
+	  </div>
+	  <div class="form-group">
+		<input type="number" class="form-control" placeholder="time(min)" ng-model="cookTime">
+	  </div>
+	  <button type="submit" class="btn btn-default" ng-click="addCookingSteps(toCook, cookTime)">Add</button>
+	</div>
+	   <table class="table table-striped">
+		   <thead>
+			   <tr>
+				   <th>Description</th>
+				   <th>Time</th>
+			   </tr>
+		   </thead>
+		   <tbody>
+			   <tr ng-repeat="step in cooking">
+				   <td>{{step.action}}</td>
+				   <td>{{step.time}}</td>
+			   </tr>
+		   </tbody>
+	   </table>
+    </div>
+   <script src="../js/lib/angular/angular.min.js"></script>
+   <script src="../js/appController.js"></script>
 </body>
 </html>
