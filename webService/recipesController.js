@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var recipes = require('./recipeSchema.js');
 
+
 exports.getUnmodifiedRecipes = function(req, res) {
 	var query = recipes.find();
 	query.where('modified', false).select('-_id');
@@ -35,4 +36,13 @@ exports.updateSteps = function(recipeName, steps) {
 			if (err) console.log("failed to update " + recipeName + " steps");
 		});
 	});
+}
+
+exports.getRecipe = function(recipeName) {
+    var query = recipes.find();
+	query.where('name', recipeName);
+    query.exec(function(err, doc){
+        var json = JSON.stringify(docs, null, 4);
+		console.log(json);
+    });
 }

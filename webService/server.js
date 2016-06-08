@@ -22,7 +22,14 @@ app.get('/admin/getModified/:time', function(req, res) {
 
 app.set('admin/updateSteps/:recipeName/:steps', function(req, res) {
 	recipesController.updateSteps(req.params.recipeName, req.params.steps);
-})
-//app.get('/ws_todo/saveActionData', todoAction.saveData);
+});
+
+app.get('admin/getRecipe/:recipeName', function(req,res) {
+    recipesController.getRecipe(req.params.recipeName)
+});
+
+
+//recipeName.replace(/\s+/, "");
+
 app.listen(port);
 console.log('listening on port 3000');
