@@ -4,8 +4,8 @@ var model = {};
 
 stepsApp.run(function($http) {
     $http.get("http://localhost:3000/admin/getUnmodified").success(function(data) {
-        model = data;
-        console.log(model);
+        model.recipes = data;
+        //console.log(model.recipes);
     });
 });
 
@@ -18,7 +18,7 @@ stepsApp.controller('quickyCtrl', function($scope){
 	//$scope.steps.push(preparation);
 	//$scope.steps.push(cooking);
 	$scope.name = "Or & itay";
-    $scope.recipes = model;
+    $scope.notModified = model;
 
 
     $scope.addPreparationSteps = function (prepare, prepTime) {
@@ -33,8 +33,9 @@ stepsApp.controller('quickyCtrl', function($scope){
 		$scope.steps.push($scope.preparation);
 		$scope.steps.push($scope.cooking);
 //        $http.set("http://localhost:3000/admin/updateSteps/" +  + "/" + $scope.steps);
-        console.log(model[0].name);
+        console.log($scope.notModified.recipes);
+		//console.log(model);
 
 	}
-    console.log($scope.recipes.[0].name);
+
 });

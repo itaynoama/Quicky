@@ -11,8 +11,8 @@
    <div class="page-header">
        <h1>Admin {{name}}'s</h1>
        </div>
-       <div class="row" ng-repeat="recipe in recipes">
-          <div class="col-sm-6 col-md-4">
+       <div class="row">
+          <div class="col-sm-6 col-md-4" ng-repeat="recipe in notModified.recipes">
             <div class="thumbnail">
               <img src="{{recipe.imageURL}}" alt="...">
               <div class="caption">
