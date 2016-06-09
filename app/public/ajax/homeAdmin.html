@@ -17,30 +17,27 @@
               <img src="{{recipe.imageURL}}" alt="...">
               <div class="caption">
                 <h3>Recipe</h3>
-                <p>{{recipe.name}}</p>
+                <p ng-model="recipeName">{{recipe.name}}</p>
                 <p>
-                   <a href="#" class="btn btn-primary" role="button">Button</a>
-                   <a href="#" class="btn btn-default" role="button">Button</a>
+                   <a href="#" class="btn btn-default" role="button" ng-click=displayRecipe(recipeName)>Display</a>
                 </p>
               </div>
             </div>
           </div>
-<!--
-          <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="http://d3k19ysnp189dx.cloudfront.net/wp-content/uploads/2016/01/Vegetarian-Chili-Mac-n-Cheese-2.jpg" alt="..." >
-              <div class="caption">
-                <h3>Recipe</h3>
-                <p>Vegan Singapore noodles</p>
-                <p>
-                   <a href="#" class="btn btn-primary" role="button">Button</a>
-                   <a href="#" class="btn btn-default" role="button">Button</a>
-                </p>
-              </div>
-            </div>
-          </div>
--->
         </div>
+        <h2>Ingredients:</h2>
+        <h3>Side:</h3>
+        <section ng-repeat="mainIngredients in notModified.recipes">
+        	{{mainIngredients}}
+        	<section ng-repeat="ingredient in mainIngredients.ingredients.main">
+        	{{mainIngredients.ingredient}}
+        		<section ng-repeat="finalIngredient in ingredient">
+        			<ul>
+        			<li ng-repeat="specific in finalIngredient">{{specific.name}}</li>
+        			</ul>
+        		</section>
+        	</section>
+        </section>
    <h2>Preparation Steps:</h2>
 <!--
    <div class="form-inline">

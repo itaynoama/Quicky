@@ -1,6 +1,9 @@
 var stepsApp = angular.module('quicky',[]);
 
-var model = {};
+var model = {
+	name : "not modified"
+
+};
 
 stepsApp.run(function($http) {
     $http.get("http://localhost:3000/admin/getUnmodified").success(function(data) {
@@ -13,10 +16,6 @@ stepsApp.controller('quickyCtrl', function($scope){
     $scope.steps = [];
 	$scope.preparation = [];
 	$scope.cooking = [];
-	//var preparation = [];
-	//var cooking = [];
-	//$scope.steps.push(preparation);
-	//$scope.steps.push(cooking);
 	$scope.name = "Or & itay";
     $scope.notModified = model;
 
@@ -36,6 +35,16 @@ stepsApp.controller('quickyCtrl', function($scope){
         console.log($scope.notModified.recipes);
 		//console.log(model);
 
+	}
+
+	$scope.displayRecipe = function(recipeName) {
+		$scope.notModified.recipes.forEach(function(data) {
+			if (data.name === recipeName) {
+				$scope.recipeToDisplay = data;
+
+			}
+		})
+		console.log($scope.recipeToDisplay);
 	}
 
 });
