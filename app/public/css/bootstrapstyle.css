@@ -28,12 +28,8 @@ body, html {
     margin-right: 10%;
 }
 .thumbnail > img {
-    height: 300px !important;
+    height: 250px !important;
     width: 100%;
-}
-input[type=text] {
-    border: 2px solid red;
-    border-radius: 4px;
 }
 h1 {
     margin-left:auto;
@@ -102,7 +98,44 @@ h2 {
     }
 
 }
-
+@media (max-width: 400px) {
+    .wrapper {
+        background: url(../images/cover.jpg) no-repeat center center fixed;
+        position: absolute;
+    }
+    .cover {
+        background: url(../images/coverRecipe.jpg) no-repeat fixed;
+    }
+    .col-sm-6 {
+        width: 80%;
+        margin-left: 10%;
+    }
+    h1 small {
+        display: block;
+        padding-top: 2%;
+    }
+    .frame {
+        width: 80%;
+    }
+    .description {
+        width: 100% !important;
+    }
+    .description > input[type=text] {
+        width: 100%;
+    }
+    .steps {
+        height: 450px;
+    }
+    .panel .btn-default {
+        float: none;
+    }
+    .frame ul {
+        margin-left: 12%;
+    }
+    .panel {
+        margin-left: 17%;
+    }
+}
 
 
 
