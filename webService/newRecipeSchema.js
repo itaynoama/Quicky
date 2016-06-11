@@ -41,8 +41,8 @@ var recipeSchema = new schema({
 	imageUrl:String,
 	likes:Number,
 	modified:Boolean
-}, {collection: "Recipes2"});
+}, {collection: "Recipes"});
 
-var recipes = mongoose.model('Recipes2', recipeSchema);
+var recipes = mongoose.model('Recipes', recipeSchema);
 
 module.exports = recipes;
