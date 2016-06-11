@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var recipes = require('./newRecipeSchema.js');
-var clients = requie('./clientSchema');
+var clients = require('./clientSchema.js');
 
 function getRecipe(recipeName, callback) {
 	var query = recipes.findOne().where('name', recipeName);
