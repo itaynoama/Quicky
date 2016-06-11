@@ -37,11 +37,13 @@ stepsApp.controller('displayRecipe', function($scope, $routeParams) {
 
 
 	for (var i = 0; i < size; i++) {
-//		console.log(recipes[i].name)
+		console.log(recipes[i].name)
 		if (recipes[i].name === $routeParams.recipeName) {
 			$scope.correctRecipe = recipes[i];
-			$scope.mainIngredients = recipes[i].ingredients[1].main;
-			$scope.sideIngredients = recipes[i].ingredients[0].side;
+			//$scope.mainIngredients = recipes[i].ingredients[1].main;
+			console.log($scope.correctRecipe.ingredients.main);
+			console.log($scope.correctRecipe.ingredients.side);
+			//$scope.sideIngredients = recipes[i].ingredients[0].side;
 //			console.log($scope.mainIngredients);
 //			console.log($routeParams.recipeName)
 //			console.log($scope.correctRecipe);
@@ -56,7 +58,7 @@ stepsApp.controller('quickyCtrl', function($scope, $routeParams, $http){
     $scope.steps = [];
 	$scope.preparation = [];
 	$scope.cooking = [];
-	$scope.name = "Or & Itay";
+	$scope.name = "Or & itay";
     $scope.notModified = model;
 
 	for (var recipe in model.recipes) {
@@ -78,14 +80,25 @@ stepsApp.controller('quickyCtrl', function($scope, $routeParams, $http){
 		$scope.steps.push($scope.preparation);
 		$scope.steps.push($scope.cooking);
 		console.log($scope.steps);
+
+		var prep = {
+
+		}
+		prep.preparation = $scope.preparation;
+		prep.cooking = $scope.cooking;
+		console.log(prep);
 //        $http.post("http://localhost:3000/admin/updateSteps/" + recipeName + "/" + $scope.steps).success(function(data) {
 //			console.log("updated");
 //		});
-		$http.post("http://localhost:3000/admin/updateSteps/" + recipeName, $scope.steps);
+	//var jsonData=angular.toJson($scope.steps);
+		$http.post("http://localhost:3000/admin/updateSteps/" + recipeName, {steps: prep});
+		//console.log(jsonData);
 //        console.log($scope.notModified.recipes);
 		//console.log(model);
 		$scope.preparation = [];
 		$scope.cooking = [];
 		$scope.steps = [];
 	}
+
+
 });
