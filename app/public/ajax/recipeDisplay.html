@@ -1,17 +1,16 @@
 <h2>Ingredients:</h2>
 <h3>Main:</h3>
-
-<section ng-repeat="part in mainIngredients">
-	<h4>{{part.kind}}</h4>
+<section>
+	<h4>{{correctRecipe.ingredients.main.kind}}</h4>
 	<ul>
-		<li ng-repeat="specific in part.ingredients">{{specific.name}} - {{specific.quantity}}</li>
+		<li ng-repeat="ingredient in correctRecipe.ingredients.main.ingredients">{{ingredient.name}} - {{ingredient.quantity}}</li>
 	</ul>
 </section>
 <h3>Side:</h3>
-<section ng-repeat="part in sideIngredients">
-	<h4>{{part.kind}}</h4>
+<section>
+	<h4>{{correctRecipe.ingredients.side.kind}}</h4>
 	<ul>
-		<li ng-repeat="specific in part.ingredients">{{specific.name}} - {{specific.quantity}}</li>
+		<li ng-repeat="ingredient in correctRecipe.ingredients.side.ingredients">{{ingredient.name}} - {{specific.quantity}}</li>
 	</ul>
 </section>
 <h3>Preparation:</h3>

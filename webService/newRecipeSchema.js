@@ -6,26 +6,12 @@ var ingredientsSchema = new schema({
 	quantity:String
 });
 
-var subIngredientsSchema = new schema({
-	kind:String,
-	ingredients:[ingredientsSchema]
-});
-
 var actionSchema = new schema({
 	action:String,
 	time:Number
 });
 
-//var stepsSchema = new schema({
-//	kind:String,
-//	action:actionSchema
-//});
 
-var timerSchema = new schema({
-	preperation:Number,
-	cooking:Number,
-	total:Number
-});
 
 var recipeSchema = new schema({
 	name: {type:String, required:true, index:1, unique:true},
@@ -34,19 +20,29 @@ var recipeSchema = new schema({
 	category: {type:String, required:true},
 	features: String,
 	ingredients: {
-		side:[subIngredientsSchema],
-		main:[subIngredientsSchema]
+		side: {
+			kind:String,
+			ingredients:[ingredientsSchema]
+		},
+		main:{
+			kind:String,
+			ingredients:[ingredientsSchema]
+		}
 	},
 	steps:{
 		preparation:[actionSchema],
 		cooking:[actionSchema]
 	},
-	timers:timerSchema,
+	timers:{
+		prepration:Number,
+		cooking:Number,
+		total:Number
+	},
 	imageUrl:String,
 	likes:Number,
 	modified:Boolean
-}, {collection: "Recipes"});
+}, {collection: "Recipes2"});
 
-var recipes = mongoose.model('Recipes', recipeSchema);
+var recipes = mongoose.model('Recipes2', recipeSchema);
 
 module.exports = recipes;
