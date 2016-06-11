@@ -1,7 +1,7 @@
 * {
     margin: 0 auto;
     padding: 0;
-    color: #ffffff;
+
 }
 
 main, section, nav, footer, header, aside {
@@ -12,6 +12,9 @@ main, section, nav, footer, header, aside {
         width: 100%;
         height: 627px;
     }
+}
+section p {
+    color: #fff;
 }
 .cover1 {
     width: 100%;
@@ -85,9 +88,6 @@ nav > section > p > span {
     margin-left: 13%;
     margin-top: 1%;
 }
-.sort {
-    margin-top: 15%;
-}
 .cover1 > p {
     font-family: arial;
     margin-left: 13%;
@@ -117,12 +117,14 @@ nav > section > p > span {
 	float: left;
 	height: 100%;
 	width: 15%;
+    color: #fff;
 }
 
 .rightRange {
 	position: relative;
 	float: right;
 	height: 100%;
+    color: #fff;
 }
 
 .upLeft {
@@ -170,4 +172,166 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 
+
+/******* Home Admin Style ******/
+
+.cover {
+    background: url(../images/coverRecipe.jpg) no-repeat center center fixed;
+    min-height: 100%;
+    background-size: cover;
+}
+.wrapper {
+    background: url(../images/cover.jpg) no-repeat center center fixed;
+    position: absolute;
+    background-size: 100%;
+    min-width: 100%;
+}
+.row {
+    margin: 0px !important;
+}
+.panel {
+    width: 60%;
+    margin-left: 4%;
+}
+.submit {
+    float: right;
+    margin-right: 10%;
+}
+.thumbnail > img {
+    height: 250px !important;
+    width: 100%;
+}
+h1 {
+    margin-left:auto;
+    margin-right:auto;
+    padding: 10px 0px 20px 0px;
+    color: #fff !important;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 3em !important;
+}
+h1 small {
+    color: #fff !important;
+}
+h2 {
+    color: #fff !important;
+}
+
+.description {
+    width: 60% !important;
+}
+
+.description > input[type=text] {
+    width: 100%;
+}
+.panel .btn-default {
+    float: right;
+}
+.steps {
+    background: #000;
+    opacity: 0.7;
+    height: 300px;
+}
+.steps h2 {
+    padding: 1%;
+}
+
+.wrapper .page-header {
+    border: none;
+}
+
+.frame {
+    padding-left: 5%;
+    color: #000;
+    width: 50%;
+    margin-left: 15%;
+}
+.frame ul {
+    margin-left: 5%;
+}
+.frame h2 {
+    text-decoration: underline;
+}
+.frame h3 {
+    font-weight: bold;
+}
+
+@media (min-width: 992px) {
+    .col-md-4 {
+        width: 25% !important;
+        margin-left: 2%;
+    }
+}
+@media (min-width: 768px) {
+    .col-sm-6 {
+        width: 50%;
+    }
+
+}
+@media (max-width: 400px) {
+    .wrapper {
+        background: url(../images/cover.jpg) no-repeat center center fixed;
+        position: absolute;
+    }
+    .cover {
+        background: url(../images/coverRecipe.jpg) no-repeat fixed;
+    }
+    .col-sm-6 {
+        width: 80%;
+        margin-left: 10%;
+    }
+    h1 small {
+        display: block;
+        padding-top: 2%;
+    }
+    .frame {
+        width: 80%;
+    }
+    .description {
+        width: 100% !important;
+    }
+    .description > input[type=text] {
+        width: 100%;
+    }
+    .steps {
+        height: 450px;
+    }
+    .panel .btn-default {
+        float: none;
+    }
+    .frame ul {
+        margin-left: 12%;
+    }
+    .panel {
+        margin-left: 17%;
+    }
+    .navigation {
+        position: absolute;
+        z-index: 100;
+        width: 100%;
+    }
+    .thumbnailVer > img {
+        width: 100%;
+        height: 350px !important;
+    }
+    .thumbnailVer .caption {
+        margin-top: -21%;
+        color: #fff;
+        text-align: left;
+    }
+    .thumbnailVer .caption h3 {
+        padding-left: 15%;
+        padding-right: 16%;
+        position: relative;
+        top: -67px;
+    }
+    .sort {
+        float: right;
+        margin-top: 0;
+        padding-top: 14%;
+    }
+    #wrapper {
+        margin-top: -5%;
+    }
+}
 

@@ -8,25 +8,31 @@
     <link rel="stylesheet" type="text/css"  href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
-<body class="cover" ng-controller="quickyCtrl">
-    <div class="page-header">
-       <h1> Quicky Vegan <small>Admin {{name}}'s</small></h1>
-    </div>
-       <div class="row">
-          <div class="col-sm-6 col-md-4" ng-repeat="recipe in notModified.recipes">
-            <div class="thumbnail">
+<body ng-controller="quickyCtrl">
+    <div id="wrapper" class="verticalRecipe">
+       <div class="navigation">
+            <nav class="navbar-fixed-top">
+               <section class="hamburger">
+                   <div class="menu"></div>
+                   <div class="menu"></div>
+                   <div class="menu"></div>
+               </section>
+               <section>
+                   <p>quicky<br><span>vegan</span></p>
+               </section>
+               <section class="sort">
+                   <div class="search"></div>
+                   <div class="filter"></div>
+               </section>
+            </nav>
+        </div>
+        <div class="thumbnailVer" ng-repeat="recipe in notModified.recipes">
               <img src="{{recipe.imageURL}}" alt="image of recipe">
               <div class="caption">
                 <h3>{{recipe.displayName}}</h3>
-                <p ng-model="recipeName">{{recipe.description}}</p>
-                <p>
-                   <a href="#displayRecipe/{{recipe.name}}" class="btn btn-default" role="button">Display</a>
-                </p>
               </div>
-            </div>
-          </div>
         </div>
-    <div ng-view></div>
+    </div>
    <script src="../js/lib/angular/angular.min.js"></script>
    <script src="../js/lib/angular/angular-route.min.js"></script>
    <script src="../js/appController.js"></script>
