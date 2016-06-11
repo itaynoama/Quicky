@@ -4,17 +4,17 @@
     </div>
     <div class="frame">
         <h2>Main</h2>
-        <section ng-repeat="part in mainIngredients">
-            <h3>{{part.kind}}</h3>
+        <section>
+            <h3>{{correctRecipe.ingredients.main.kind}}</h3>
             <ul>
-                <li ng-repeat="specific in part.ingredients">{{specific.name}} - {{specific.quantity}}</li>
+                <li ng-repeat="ingredient in correctRecipe.ingredients.main.ingredients">{{ingredient.name}} - {{ingredient.quantity}}</li>
             </ul>
         </section>
         <h2>Side</h2>
-        <section ng-repeat="part in sideIngredients">
-            <h3>{{part.kind}}</h3>
+        <section>
+            <h3>{{correctRecipe.ingredients.side.kind}}</h3>
             <ul>
-                <li ng-repeat="specific in part.ingredients">{{specific.name}} - {{specific.quantity}}</li>
+                <li ng-repeat="ingredient in correctRecipe.ingredients.side.ingredients">{{ingredient.name}} - {{ingredient.quantity}}</li>
             </ul>
         </section>
         <h3>Steps in preparation</h3>

@@ -1,6 +1,10 @@
 var express = require('express');
+var bodyParser = require("body-parser");
 var app = express();
 var recipesController = require('./recipesController');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;
 
@@ -20,11 +24,17 @@ app.get('/admin/getModified/:time', function(req, res) {
 	recipesController.getModifiedRecipes(req.params.time);
 });
 
-app.get('admin/updateSteps/:recipeName', function(req, res) {
+app.post('/admin/updateSteps/:recipeName', function(req, res) {
 //	recipesController.updateSteps(req.params.recipeName, req.params.steps);
-	console.log(req);
-	console.log(req.params.steps);
+	//console.log(req.body.steps.preparation);
+	//console.log(req.params.recipeName);
+	recipesController.updateSteps(req.params.recipeName, req.body.steps);
+	//console.log(req.params.steps);
 });
+
+app.get('/admin/updateLikes/:recipeName', function(req, res) {
+	recipesController.increaseLikes(req.params.recipeName);
+})
 
 app.get('admin/getRecipe/:recipeName', function(req,res) {
     recipesController.getRecipe(req.params.recipeName)
