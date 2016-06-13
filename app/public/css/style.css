@@ -1,3 +1,4 @@
+/******* homepage client ******/
 * {
     margin: 0 auto;
     padding: 0;
@@ -312,10 +313,10 @@ h2 {
     }
     .thumbnailVer > img {
         width: 100%;
-        height: 350px !important;
+        height: 350px;
     }
     .thumbnailVer .caption {
-        margin-top: -21%;
+        margin-top: -22%;
         color: #fff;
         text-align: left;
     }
@@ -332,6 +333,18 @@ h2 {
     }
     #wrapper {
         margin-top: -5%;
+    }
+    .YellowNavigation nav {
+        background:#FFFF99;
+    }
+    .favorite {
+        position: absolute;
+        margin-left: 84%;
+        margin-top: 70%;
+    }
+    .favorite img {
+        width: 40px !important;
+        height: 40px !important;
     }
 }
 

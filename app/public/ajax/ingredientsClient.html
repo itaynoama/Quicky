@@ -10,7 +10,6 @@
 </head>
 <body ng-controller="quickyCtrl">
     <div id="wrapper">
-       <div class="navigation">
             <nav class="navbar-fixed-top">
                <section class="hamburger">
                    <div class="menu"></div>
@@ -25,16 +24,6 @@
                    <div class="filter"></div>
                </section>
             </nav>
-        </div>
-        <div class="thumbnailVer" ng-repeat="recipe in notModified.recipes">
-              <div class="favorite">
-                <img src="../images/favorite.png" alt="favorite">
-              </div>
-              <img src="{{recipe.imageURL}}" alt="image of recipe">
-              <div class="caption">
-                <h3>{{recipe.displayName}}</h3>
-              </div>
-        </div>
     </div>
    <script src="../js/lib/angular/angular.min.js"></script>
    <script src="../js/lib/angular/angular-route.min.js"></script>
