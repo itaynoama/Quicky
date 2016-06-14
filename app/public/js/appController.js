@@ -151,12 +151,8 @@ quickyApp.controller('ClientHome', function($scope, $http, $location) {
 })
 
 quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
-    console.log($stateParams.time);
     var time = parseInt($stateParams.time, 10);
     $scope.modifiedRecipes = globalData.recipes;
-
-    console.log($scope.modifiedRecipes);
-
     $scope.addToFavorites = function(recipeName) {
         $http.post('http://localhost:3000/admin/addToFavorites/' + recipeName, {email: globalData.email}).success(function(data) {
             if (data.status == 301) {
@@ -176,7 +172,7 @@ quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
 			break;
 		}
 	}
-    console.log($scope.correctRecipe.steps);
+//    console.log($scope.correctRecipe.steps);
 
 
 })
