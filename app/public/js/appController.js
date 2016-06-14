@@ -1,72 +1,81 @@
-var stepsApp = angular.module('quicky',['ngRoute']);
+var quickyApp = angular.module('quicky',["ui.router"]);
 
 var model = {
 	name : "not modified"
 
 };
-stepsApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/displayRecipe/:recipeName', {
-        templateUrl: 'recipeDisplay.html',
-        controller: 'displayRecipe'
-    }).
-      otherwise({
-        redirectTo: '/'
-      });
-}]);
 
-stepsApp.run(function($http) {
-    $http.get("http://localhost:3000/admin/getUnmodified").success(function(data) {
-        model.recipes = data;
-    });
+quickyApp.config(function($stateProvider, $urlRouterProvider){
+
+      // For any unmatched url, send to /route1
+	$urlRouterProvider.otherwise("/")
+
+	$stateProvider
+	.state('login', {
+		url: "/",
+		controller: "loginCtrl"
+	})
+	.state('admin', {
+		url: "/adminPage",
+		templateUrl: "./templates/adminPage.html",
+		controller: 'quickyCtrl'
+	})
+		.state('admin.recipeDisplay', {
+			url: "/displayRecipe/:recipeName",
+			templateUrl: './templates/recipeDisplay.html',
+			controller: 'displayRecipe'
+		})
+	  .state('route2.list', {
+		  url: "/list",
+		  templateUrl: "route2.list.html",
+		  controller: function($scope){
+			$scope.things = ["A", "Set", "Of", "Things"];
+		  }
+	  })
+	})
+
+quickyApp.controller('loginCtrl', function($scope, $http, $location) {
+	$scope.checkEmail = function(email) {
+		$http.get("http://localhost:3000/checkClient/" + email).success(function(data) {
+			model.type = data.type;
+			model.email = email;
+			$scope.removeOnClick();
+		});
+	}
+
+	$scope.removeOnClick = function() {
+		var elem = angular.element( document.querySelector( '#gConnect' ) );
+		elem.remove();
+		if (model.type == "Admin") {
+			$http.get("http://localhost:3000/admin/getUnmodified").success(function(data) {
+        		model.recipes = data;
+
+				$location.path('/adminPage');
+    		});
+		} else {
+			$location.path('/cooker').replace();
+			console.log($location.path());
+		}
+	}
 });
 
-
-
-//stepsApp.config(['$routeProvider', function($routeProvider) {
-//	$routeProvider.when('#:recipeName', {
-//		templateUrl:'/recipeDisplay.html',
-//		controller: 'displayRecipe'
-//	});
-//}]);
-
-stepsApp.controller('displayRecipe', function($scope, $routeParams) {
+quickyApp.controller('displayRecipe', function($scope, $stateParams) {
 	var recipes = model.recipes;
 	var size = model.recipes.length;
-
-
 	for (var i = 0; i < size; i++) {
-		console.log(recipes[i].name)
-		if (recipes[i].name === $routeParams.recipeName) {
+		if (recipes[i].name === $stateParams.recipeName) {
 			$scope.correctRecipe = recipes[i];
-			//$scope.mainIngredients = recipes[i].ingredients[1].main;
-			console.log($scope.correctRecipe.ingredients.main);
-			console.log($scope.correctRecipe.ingredients.side);
-			//$scope.sideIngredients = recipes[i].ingredients[0].side;
-//			console.log($scope.mainIngredients);
-//			console.log($routeParams.recipeName)
-//			console.log($scope.correctRecipe);
 			break;
 		}
 	}
-//	console.log($scope.correctRecipe);
-
 });
 
-stepsApp.controller('quickyCtrl', function($scope, $routeParams, $http){
+quickyApp.controller('quickyCtrl', function($scope, $http){
     $scope.steps = [];
 	$scope.preparation = [];
 	$scope.cooking = [];
 	$scope.name = "Or & itay";
     $scope.notModified = model;
-
-	for (var recipe in model.recipes) {
-		if (recipe.name === $routeParams.recipeName) {
-			$scope.correctRecipe = recipe;
-			break;
-		}
-	}
 
     $scope.addPreparationSteps = function (prepare, prepTime) {
         $scope.preparation.push({action: prepare, time: prepTime});
@@ -87,14 +96,8 @@ stepsApp.controller('quickyCtrl', function($scope, $routeParams, $http){
 		prep.preparation = $scope.preparation;
 		prep.cooking = $scope.cooking;
 		console.log(prep);
-//        $http.post("http://localhost:3000/admin/updateSteps/" + recipeName + "/" + $scope.steps).success(function(data) {
-//			console.log("updated");
-//		});
-	//var jsonData=angular.toJson($scope.steps);
 		$http.post("http://localhost:3000/admin/updateSteps/" + recipeName, {steps: prep});
-		//console.log(jsonData);
-//        console.log($scope.notModified.recipes);
-		//console.log(model);
+
 		$scope.preparation = [];
 		$scope.cooking = [];
 		$scope.steps = [];

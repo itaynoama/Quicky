@@ -95,7 +95,56 @@ exports.increaseLikes = function(recipeName) {
 	});
 }
 
-exports.findClient
+exports.findClient = function(email, callback) {
+	var query = clients.findOne().where('email', email);
+	query.exec(function(err, doc) {
+		if (err) {
+			var error1 = "error searching fo client";
+			console.log(error1);
+			callback(error1);
+		} else if (!doc) {
+			//person is not exist
+			var client = new clients({
+				favorite: [],
+				email: email,
+				type: 'Cooker'
+			});
+			client.save(function(err, doc) {
+				if (err) {
+					var error2 = "failed creating new client";
+					console.log(error2);
+					callback(error2);
+				} else {
+					console.log("new client created:\n" + doc);
+					callback("Cooker");
+				}
+			});
+		} else {
+			if (doc.type === "Admin") callback("Admin");
+			else callback("Cooker");
+		}
+	})
+}
+
+exports.addFavorite = function(email, recipeName) {
+	var query = clients.findOne().where('email', email);
+	query.exec(function(err, doc) {
+		if (err) {
+			console.log('error searching for client');
+		} else if (!doc){
+			console.log('client does not exist');
+		} else {
+			var query2 = doc.update({$push:{favorite: recipeName}});
+			query2.exec(function(err) {
+				if (err) {
+					console.log('failed to update client');
+				} else {
+					console.log('success in updating client');
+				}
+			});
+		}
+	});
+}
 
 
 

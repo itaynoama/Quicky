@@ -24,13 +24,22 @@ app.get('/admin/getModified/:time', function(req, res) {
 	recipesController.getModifiedRecipes(req.params.time);
 });
 
-app.post('/admin/updateSteps/:recipeName', function(req, res) {
-//	recipesController.updateSteps(req.params.recipeName, req.params.steps);
-	//console.log(req.body.steps.preparation);
-	//console.log(req.params.recipeName);
-	recipesController.updateSteps(req.params.recipeName, req.body.steps);
-	//console.log(req.params.steps);
+app.post('/admin/updateSteps/:recipeName', function(req, res) {	recipesController.updateSteps(req.params.recipeName, req.body.steps);
 });
+
+app.get('/checkClient/:email', function(req, res) {
+	recipesController.findClient(req.params.email, function(data) {
+		if (data != 'Admin' && data != 'Cooker') {
+			res.json({error: data});
+		} else {
+			res.json({type: data});
+		}
+	})
+})
+
+app.get('/admin/addToFavorites/:email/:recipeName', function(req, res) {
+	recipesController.addFavorite(req.params.email, req.params.recipeName);
+})
 
 app.get('/admin/updateLikes/:recipeName', function(req, res) {
 	recipesController.increaseLikes(req.params.recipeName);

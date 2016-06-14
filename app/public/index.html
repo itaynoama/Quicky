@@ -1,15 +1,59 @@
 <!DOCTYPE html>
-<html ng-app='quicky'>
-<head>
-	<meta charset="UTF-8">
-	<title>Quicky App</title>
-	<link rel="stylesheet" href="css/style.css">
-	<script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous">
-	</script>
-	<script src="js/script.js"></script>
-	<script src="js/lib/angular/angular.min.js"></script>
-</head>
-<body>
+<html lang="en" ng-app="quicky">
+	<head>
+		<meta charset="UTF-8">
+		<title>Quicky App</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css"  href="../css/bootstrapstyle.css">
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+		<script src = "https://plus.google.com/js/client:platform.js" async defer></script>
 
-</body>
+
+	</head>
+	<body class="cover" ng-controller="quickyCtrl">
+		<div id="gConnect" class="button" ng-controller="loginCtrl">
+			<button class="g-signin"
+				  data-scope="email"
+				  data-clientid="931089649208-rvd2fv4fdooju5h258deuat3if5j3j33.apps.googleusercontent.com"
+				  data-callback="onSignInCallback"
+				  data-theme="dark"
+				  data-cookiepolicy="single_host_origin">
+			</button>
+			<script>
+				/**
+				* Handler for the signin callback triggered after the user selects an account.
+				*/
+				function onSignInCallback(resp) {
+					gapi.client.load('plus', 'v1', apiClientLoaded);
+				}
+
+				/**
+				* Sets up an API call after the Google API client loads.
+				*/
+				function apiClientLoaded() {
+					gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
+				}
+
+				/**
+				* Response callback for when the API client receives a response.
+				*
+				* @param resp The API response object with the user email and profile information.
+				*/
+				function handleEmailResponse(resp) {
+					var primaryEmail;
+					for (var i=0; i < resp.emails.length; i++) {
+				  		if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
+					}
+				  	console.log(primaryEmail);
+				  	angular.element(document.getElementById('gConnect')).scope().checkEmail(primaryEmail);
+				}
+  			</script>
+		</div>
+		<dvi ui-view></dvi>
+		<script src='./js/lib/angular/angular.min.js'></script>
+<!--		<script src="./js/lib/angular/angular-route.min.js"></script>-->
+		<script src="./js/lib/angular/angular-ui-router.min.js"></script>
+		<script src="./js/appController.js"></script>
+	</body>
 </html>
