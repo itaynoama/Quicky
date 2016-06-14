@@ -18,7 +18,8 @@
     <div class="thumbnailVer" ng-repeat="recipe in modifiedRecipes">
          <a ui-sref="specificRecipe({recipeName: recipe.name})">
               <div class="favorite">
-                <img src="../images/favorite.png" alt="favorite" ng-click="addToFavorite(recipe.name)">
+               <button ng-click="$event.preventPropagation();addToFavorite()">
+                   <img src="../images/favorite.png" alt="favorite"></button>
               </div>
               <img src="{{recipe.imageURL}}" alt="image of recipe">
               <div class="caption">

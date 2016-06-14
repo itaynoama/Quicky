@@ -153,7 +153,10 @@ quickyApp.controller('ClientHome', function($scope, $http, $location) {
 quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
     var time = parseInt($stateParams.time, 10);
     $scope.modifiedRecipes = globalData.recipes;
-    $scope.addToFavorites = function(recipeName) {
+    $scope.addToFavorites = function() {
+        console.log("favoriteeee");
+        return;
+
         $http.post('http://localhost:3000/admin/addToFavorites/' + recipeName, {email: globalData.email}).success(function(data) {
             if (data.status == 301) {
                 console.log('addFavorite service had failed');
