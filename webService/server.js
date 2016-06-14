@@ -21,36 +21,63 @@ app.use(function(req, res, next) {
 app.get('/admin/getUnmodified', recipesController.getUnmodifiedRecipes);
 
 app.get('/admin/getModified/:time', function(req, res) {
-	recipesController.getModifiedRecipes(req.params.time);
+	recipesController.getModifiedRecipes(req.params.time, function(data) {
+        if (data.status) {
+            res.json(data.data);
+        } else {
+            res.status(301);
+            res.send();
+        }
+    });
 });
 
-app.post('/admin/updateSteps/:recipeName', function(req, res) {	recipesController.updateSteps(req.params.recipeName, req.body.steps);
+app.post('/admin/updateSteps/:recipeName', function(req, res) {
+
+    recipesController.updateSteps(req.params.recipeName, req.body.steps, function(data) {
+        if (data.status) res.status(200);
+        else res.status(301);
+        res.send();
+    });
 });
 
 app.get('/checkClient/:email', function(req, res) {
-	recipesController.findClient(req.params.email, function(data) {
-		if (data != 'Admin' && data != 'Cooker') {
-			res.json({error: data});
-		} else {
-			res.json({type: data});
-		}
+	recipesController.getClient(req.params.email, function(data) {
+        if (data.type) {
+            res.json({type: data.data});
+        }
+        else {
+            res.json({error: data.data});
+        }
 	})
 })
 
-app.get('/admin/addToFavorites/:email/:recipeName', function(req, res) {
-	recipesController.addFavorite(req.params.email, req.params.recipeName);
+app.post('/admin/addToFavorites/:recipeName', function(req, res) {
+    recipesController.addFavorite(req.params.recipeName, req.body.email, function(data) {
+            if (data.status) {
+                res.status(200);
+            } else {
+                res.status(301);
+            }
+        res.send();
+    });
 })
 
-app.get('/admin/updateLikes/:recipeName', function(req, res) {
-	recipesController.increaseLikes(req.params.recipeName);
-})
+//app.get('/admin/updateLikes/:recipeName', function(req, res) {
+//	recipesController.increaseLikes(req.params.recipeName, function(data) {
+//        if (data.status) {
+//            res.status(200);
+//        } else {
+//            res.status(301);
+//        }
+//        res.send();
+//    });
+//})
 
-app.get('admin/getRecipe/:recipeName', function(req,res) {
-    recipesController.getRecipe(req.params.recipeName)
-});
+//app.get('admin/getRecipe/:recipeName', function(req,res) {
+//    recipesController.getRecipe(req.params.recipeName)
+//});
 
 
-//recipeName.replace(/\s+/, "");
 
 app.listen(port);
 console.log('listening on port 3000');

@@ -8,22 +8,21 @@
 		<link rel="stylesheet" type="text/css"  href="../css/style.css">
 		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 		<script src = "https://plus.google.com/js/client:platform.js" async defer></script>
-
-
 	</head>
-	<body class="cover" ng-controller="quickyCtrl">
+	<body class="cover">
 		<div id="gConnect" class="button" ng-controller="loginCtrl">
 			<button class="g-signin"
-				  data-scope="email"
+				  data-scope="https://www.googleapis.com/auth/plus.login"
 				  data-clientid="931089649208-rvd2fv4fdooju5h258deuat3if5j3j33.apps.googleusercontent.com"
 				  data-callback="onSignInCallback"
 				  data-theme="dark"
 				  data-cookiepolicy="single_host_origin">
 			</button>
-			<script>
+			<script id="googleSript">
 				/**
 				* Handler for the signin callback triggered after the user selects an account.
 				*/
+
 				function onSignInCallback(resp) {
 					gapi.client.load('plus', 'v1', apiClientLoaded);
 				}
@@ -45,8 +44,7 @@
 					for (var i=0; i < resp.emails.length; i++) {
 				  		if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
 					}
-				  	console.log(primaryEmail);
-				  	angular.element(document.getElementById('gConnect')).scope().checkEmail(primaryEmail);
+				  	angular.element(document.getElementById('gConnect')).scope().checkEmail(primaryEmail, resp);
 				}
   			</script>
 		</div>
