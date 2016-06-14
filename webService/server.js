@@ -21,6 +21,7 @@ app.use(function(req, res, next) {
 app.get('/admin/getUnmodified', recipesController.getUnmodifiedRecipes);
 
 app.get('/admin/getModified/:time', function(req, res) {
+    console.log('get modified called with time: ' + req.params.time)
 	recipesController.getModifiedRecipes(req.params.time, function(data) {
         if (data.status) {
             res.json(data.data);
@@ -33,7 +34,7 @@ app.get('/admin/getModified/:time', function(req, res) {
 
 app.post('/admin/updateSteps/:recipeName', function(req, res) {
 
-    recipesController.updateSteps(req.params.recipeName, req.body.steps, function(data) {
+    recipesController.updateSteps(req.params.recipeName, req.body.steps,req.body.prepare, req.body.cook, function(data) {
         if (data.status) res.status(200);
         else res.status(301);
         res.send();
