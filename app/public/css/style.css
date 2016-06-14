@@ -34,13 +34,14 @@ section p {
     float: left;
     font-size: 4.2em;
     font-family: arial;
-    margin-left: 25%;
 }
 .cover1 > .mainCatgry {
-   margin-top: 4%;
+    margin-top: 20%;
+    margin-left: -8%;
 }
 .cover2 > .mainCatgry {
-   margin-top: 30%;
+    margin-top: 30%;
+    margin-left: 34%;
 }
 nav {
     background: rgba(0,0,0,0.2);
@@ -107,7 +108,7 @@ nav > section > p > span {
 
 .rangeBar {
 	position: absolute;
-	bottom: 0px;
+	bottom: -10px;
 	width: 80%;
 	left: 10%;
 	height: 80%
@@ -133,7 +134,7 @@ nav > section > p > span {
 }
 .downLeft {
 	position: absolute;
-	bottom: 0;
+    bottom: -4px;
 }
 .upRight {
 	position: absolute;
@@ -141,7 +142,7 @@ nav > section > p > span {
 }
 .downRight {
 	position: absolute;
-	bottom: 0;
+	bottom: -5px;
 	right: 0;
 }
 
@@ -346,6 +347,14 @@ h2 {
     .favorite img {
         width: 40px !important;
         height: 40px !important;
+    }
+    #slider_value {
+        color: #fff;
+        margin-right: 48%;
+        float: right;
+        margin-top: -4%;
+        font-weight: bold;
+        font-size: 1.5em;
     }
 }
 
