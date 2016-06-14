@@ -168,5 +168,15 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
 })
 
 quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
+    var recipes = globalData.recipes;
+	var size = globalData.recipes.length;
+	for (var i = 0; i < size; i++) {
+		if (recipes[i].name === $stateParams.recipeName) {
+			$scope.correctRecipe = recipes[i];
+			break;
+		}
+	}
+    console.log($scope.correctRecipe.steps);
+
 
 })

@@ -13,4 +13,32 @@
            <div class="filter"></div>
        </section>
     </nav>
+    <div class="frame">
+        <h2>Main</h2>
+        <section>
+            <h3>{{correctRecipe.ingredients.main.kind}}</h3>
+            <ul>
+                <li ng-repeat="ingredient in correctRecipe.ingredients.main.ingredients">{{ingredient.name}} - {{ingredient.quantity}}</li>
+            </ul>
+        </section>
+        <h2>Side</h2>
+        <section>
+            <h3>{{correctRecipe.ingredients.side.kind}}</h3>
+            <ul>
+                <li ng-repeat="ingredient in correctRecipe.ingredients.side.ingredients">{{ingredient.name}} - {{ingredient.quantity}}</li>
+            </ul>
+        </section>
+        <h3>Preparation Steps</h3>
+        <section class="stepsAdmin">
+            <ul>
+                <li ng-repeat="step in correctRecipe.steps.preparation">{{step.action}} - {{step.time}} min</li>
+            </ul>
+        </section>
+        <h3>Cooking Steps</h3>
+        <section class="stepsAdmin">
+            <ul>
+                <li ng-repeat="step in correctRecipe.steps.cooking">{{step.action}} - {{step.time}} min</li>
+            </ul>
+        </section>
+    </div>
 </div>
