@@ -27,12 +27,12 @@ quickyApp.config(function($stateProvider, $urlRouterProvider){
 		}).
     state('cooker', {
         url: "/home",
-        templateUrl: "home.html",
+        templateUrl: "./templates/home.html",
         controller: 'ClientHome'
     }).
     state('recipesByTime', {
         url: "/displayByTime/:time",
-        templateUrl: './templates/recipesByTime.html',
+        templateUrl: './templates/recipesClient.html',
         controller: 'displayByTime'
     })
 
@@ -45,6 +45,7 @@ quickyApp.controller('loginCtrl', function($scope, $http, $location) {
 
             globalData.userType = data.type;
 			globalData.email = email;
+            console.log(email);
 			$scope.removeOnClick();
 		});
 	}
@@ -66,7 +67,7 @@ quickyApp.controller('loginCtrl', function($scope, $http, $location) {
 
     		});
 		} else {
-			$location.path('/cooker').replace();
+			$location.path('/home');
 		}
 	}
 });
@@ -88,13 +89,17 @@ quickyApp.controller('quickyCtrl', function($scope, $http){
 	$scope.cooking = [];
 	$scope.name = globalData.user.displayName;
     $scope.notModified = globalData.recipes;
+    var preparationTime = 0;
+    var cookingTime = 0;
 
     $scope.addPreparationSteps = function (prepare, prepTime) {
         $scope.preparation.push({action: prepare, time: prepTime});
+        preparationTime += prepTime;
     };
 
 	$scope.addCookingSteps = function (toCook, cookTime) {
         $scope.cooking.push({action: toCook, time: cookTime});
+        cookingTime += cookTime;
 	};
 
 	$scope.setSteps = function(recipeName) {
@@ -105,7 +110,11 @@ quickyApp.controller('quickyCtrl', function($scope, $http){
 		}
 		prep.preparation = $scope.preparation;
 		prep.cooking = $scope.cooking;
-		$http.post("http://localhost:3000/admin/updateSteps/" + recipeName, {steps: prep}).success(function(data) {
+        console.log(prep);
+        console.log(preparationTime);
+        console.log(cookingTime);
+
+		$http.post("http://localhost:3000/admin/updateSteps/" + recipeName, {steps: prep, prepare: preparationTime, cook: cookingTime }).success(function(data) {
             if (data.status == 301) {
                 console.log("updateSteps service has failed");
             }
@@ -116,22 +125,26 @@ quickyApp.controller('quickyCtrl', function($scope, $http){
 	}
 });
 
-quickyApp.controller('ClientHome', function($scope, $http) {
+quickyApp.controller('ClientHome', function($scope, $http, $location) {
+    $scope.getAllModified = function() {
+        var elem = angular.element( document.querySelector('#timeInput'));
+        var time = elem[0].value;
+        $location.path('/displayByTime/' + time)
 
+    }
 })
 
 quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
+    console.log($stateParams.time);
     var time = parseInt($stateParams.time, 10);
-    $scope.getAllModified = function(time) {
-        $http.get('http://localhost:3000/admin/getModified/' + $stateParams.time, function(data) {
-            if (data.status == 301) {
-                console.log("getModified service has failed");
-            } else {
-                globalData.recipes = data;
-                $scope.modifiedRecipes = globalData.recipes;
-            }
-        });
-    }
+    $http.get('http://localhost:3000/admin/getModified/' + time, function(data) {
+        if (data.status == 301) {
+            console.log("getModified service has failed");
+        } else {
+            globalData.recipes = data;
+            $scope.modifiedRecipes = globalData.recipes;
+        }
+    });
 
     $scope.addToFavorites = function(recipeName) {
         $http.post('http://localhost:3000/admin/addToFavorites/' + recipeName, {email: globalData.email}).success(function(data) {

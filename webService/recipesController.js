@@ -43,24 +43,29 @@ exports.getUnmodifiedRecipes = function(req, res) {
 	});
 }
 
-exports.getModifiedRecipes = function(time) {
+exports.getModifiedRecipes = function(time, callback) {
+    console.log("getModified called");
 	var query = recipes.find();
-	query.where('timers.total', time).select('-_id').select('-timers._id');
+	query.where('timers.total', time).select('-_id');
 	query.exec(function(err, docs) {
-		var json = JSON.stringify(docs, null, 4);
-		var parse = JSON.parse(json);
-		console.log(json);
-		console.log(parse);
-		res.json(docs);
+        if (err || !docs) {
+            callback({status: false});
+        } else {
+            var json = JSON.stringify(docs, null, 4);
+            console.log(json);
+            callback({status: true, data: docs});
+        }
 	})
 }
 
 exports.updateSteps = function(recipeName, steps, prep, cook, callback) {
+    console.log("prepare: " + prep);
+    console.log(cook);
 	getRecipe(recipeName, function(doc) {
         if (doc.status) {
             doc.data.set('steps', steps);
             doc.data.set('modified', true);
-            doc.data.set('timers.prepration', prep);
+            doc.data.set('timers.preparation', prep);
             doc.data.set('timers.cooking', cook);
             doc.data.set('timers.total', cook+prep);
             doc.data.save(function(err) {
@@ -75,10 +80,6 @@ exports.updateSteps = function(recipeName, steps, prep, cook, callback) {
 			}
 		});
         }
-
-
-
-
 	});
 }
 

@@ -1,4 +1,4 @@
-<div id="wrapper">
+<div id="wrapper" ng-controller="ClientHome">
 	<nav>
 	   <section class="hamburger">
 		   <div class="menu"></div>
@@ -15,11 +15,11 @@
 	</nav>
 	<section class="cover1">
 		<p>How much time<br>do yo have?</p>
-		<h1 class="mainCatgry">Cook</h1>
+		<h1 class="mainCatgry" ng-click="getAllModified()">Cook</h1>
 	</section>
 	<div class="rangeBarWrapper">
 		<div class="rangeBar">
-			<input type="range" min=5 max=30 value=15>
+			<input id="timeInput" type="range" min=5 max=30 value=15>
 			<div class="leftRange">
 				<p class="upLeft"></p>5<br>
 				<p class="downLeft">min</p>
