@@ -34,7 +34,7 @@ var recipeSchema = new schema({
 		cooking:[actionSchema]
 	},
 	timers:{
-		prepration:Number,
+		preparation:Number,
 		cooking:Number,
 		total:Number
 	},
