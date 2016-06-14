@@ -167,6 +167,7 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
 })
 
 quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
+    document.getElementsByClassName('cover')[0].removeAttribute('class');
     var recipes = globalData.recipes;
 	var size = globalData.recipes.length;
 	for (var i = 0; i < size; i++) {
