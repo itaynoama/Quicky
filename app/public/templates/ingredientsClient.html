@@ -1,19 +1,24 @@
-<div id="wrapper">
-    <nav class="navbar-fixed-top">
-       <section class="hamburger">
-           <div class="menu"></div>
-           <div class="menu"></div>
-           <div class="menu"></div>
-       </section>
-       <section>
-           <p>quicky<br><span>vegan</span></p>
-       </section>
-       <section class="sort">
-           <div class="search"></div>
-           <div class="filter"></div>
-       </section>
-    </nav>
+<div id="wrapper" class="ingredient">
+    <div class="navigation">
+        <nav class="navbar-fixed-top">
+           <section class="hamburger">
+               <div class="menu"></div>
+               <div class="menu"></div>
+               <div class="menu"></div>
+           </section>
+           <section>
+               <p>quicky<br><span>vegan</span></p>
+           </section>
+           <section class="sort">
+               <div class="search"></div>
+               <div class="filter"></div>
+           </section>
+        </nav>
+    </div>
+    <img src="{{correctRecipe.imageURL}}" alt="">
     <div class="frame">
+        <h3>{{correctRecipe.displayName}}</h3>
+        <p>{{correctRecipe.description}}</p>
         <h2>Main</h2>
         <section>
             <h3>{{correctRecipe.ingredients.main.kind}}</h3>
