@@ -24,6 +24,7 @@ app.get('/admin/getModified/:time', function(req, res) {
     console.log('get modified called with time: ' + req.params.time)
 	recipesController.getModifiedRecipes(req.params.time, function(data) {
         if (data.status) {
+            console.log("sending the result");
             res.json(data.data);
         } else {
             res.status(301);

@@ -52,7 +52,7 @@ exports.getModifiedRecipes = function(time, callback) {
             callback({status: false});
         } else {
             var json = JSON.stringify(docs, null, 4);
-            console.log(json);
+            console.log("success!! - achieved " + docs.length + " results");
             callback({status: true, data: docs});
         }
 	})
