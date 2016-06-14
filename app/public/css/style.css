@@ -313,16 +313,19 @@ h2 {
         z-index: 100;
         width: 100%;
     }
-    .thumbnailVer > img {
+    .thumbnailVer > a > img {
         width: 100%;
         height: 350px;
     }
-    .thumbnailVer .caption {
+    .thumbnailVer a {
+        text-decoration: none !important;
+    }
+    .thumbnailVer > a > .caption {
         margin-top: -22%;
         color: #fff;
         text-align: left;
     }
-    .thumbnailVer .caption h3 {
+    .thumbnailVer > a > .caption h3 {
         padding-left: 15%;
         padding-right: 16%;
         position: relative;
