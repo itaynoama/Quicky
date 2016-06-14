@@ -34,7 +34,12 @@ quickyApp.config(function($stateProvider, $urlRouterProvider){
         url: "/displayByTime/:time",
         templateUrl: './templates/recipesClient.html',
         controller: 'displayByTime'
-    })
+    }).
+    state('specificRecipe', {
+          url: "/displayByTime/specific/:recipeName",
+          templateUrl: "./templates/ingredientsClient.html",
+          controller: 'recipeIngredients'
+          })
 
 })
 
@@ -129,7 +134,18 @@ quickyApp.controller('ClientHome', function($scope, $http, $location) {
     $scope.getAllModified = function() {
         var elem = angular.element( document.querySelector('#timeInput'));
         var time = elem[0].value;
-        $location.path('/displayByTime/' + time)
+        $http.get('http://localhost:3000/admin/getModified/' + time).success(function(data) {
+            console.log("success");
+            if (data.status == 301) {
+                console.log("getModified service has failed");
+            } else {
+                globalData.recipes = data;
+//                console.log(data);
+                $location.path('/displayByTime/' + time);
+            }
+        });
+
+
 
     }
 })
@@ -137,14 +153,9 @@ quickyApp.controller('ClientHome', function($scope, $http, $location) {
 quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
     console.log($stateParams.time);
     var time = parseInt($stateParams.time, 10);
-    $http.get('http://localhost:3000/admin/getModified/' + time, function(data) {
-        if (data.status == 301) {
-            console.log("getModified service has failed");
-        } else {
-            globalData.recipes = data;
-            $scope.modifiedRecipes = globalData.recipes;
-        }
-    });
+    $scope.modifiedRecipes = globalData.recipes;
+
+    console.log($scope.modifiedRecipes);
 
     $scope.addToFavorites = function(recipeName) {
         $http.post('http://localhost:3000/admin/addToFavorites/' + recipeName, {email: globalData.email}).success(function(data) {
@@ -153,5 +164,9 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
             }
         });
     }
+
+})
+
+quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
 
 })

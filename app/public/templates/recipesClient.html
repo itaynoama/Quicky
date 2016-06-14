@@ -15,7 +15,8 @@
            </section>
         </nav>
     </div>
-    <div class="thumbnailVer" ng-repeat="recipe in modifiedRecipes.recipes">
+    <div class="thumbnailVer" ng-repeat="recipe in modifiedRecipes">
+         <a ui-sref=""></a>
           <div class="favorite">
             <img src="../images/favorite.png" alt="favorite" ng-click="addToFavorite(recipe.name)">
           </div>
