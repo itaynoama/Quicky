@@ -18,8 +18,10 @@
 		<h1 class="mainCatgry" ng-click="getAllModified()">Cook</h1>
 	</section>
 	<div class="rangeBarWrapper">
+	<span id="slider_value"></span>
 		<div class="rangeBar">
-			<input id="timeInput" type="range" min=5 max=30 value=15>
+
+			<input id="timeInput" type="range" min=5 max=30 value=15 onchange="show_value(this.value);">
 			<div class="leftRange">
 				<p class="upLeft"></p>5<br>
 				<p class="downLeft">min</p>
