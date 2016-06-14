@@ -16,7 +16,7 @@
         </nav>
     </div>
     <div class="thumbnailVer" ng-repeat="recipe in modifiedRecipes">
-         <a ui-sref="specificRecipe({recipeName: recipe.name})">
+         <a ui-sref="specificRecipe({recipeName: recipe.name})"></a>
           <div class="favorite">
             <img src="../images/favorite.png" alt="favorite" ng-click="addToFavorite(recipe.name)">
           </div>
@@ -24,6 +24,5 @@
           <div class="caption">
             <h3>{{recipe.displayName}}</h3>
           </div>
-        </a>
     </div>
 </div>
