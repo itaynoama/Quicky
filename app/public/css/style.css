@@ -250,6 +250,10 @@ h2 {
 .frame ul {
     margin-left: 5%;
 }
+.stepsAdmin ul > li {
+    font-weight: bold;
+    color: #00008B;
+}
 .frame h2 {
     text-decoration: underline;
 }
