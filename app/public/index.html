@@ -24,7 +24,9 @@
 				*/
 
 				function onSignInCallback(resp) {
-					gapi.client.load('plus', 'v1', apiClientLoaded);
+                    if (resp['status']['signed_in'] && resp['status']['method'] == 'PROMPT'){
+                        gapi.client.load('plus', 'v1', apiClientLoaded);
+                    }
 				}
 
 				/**

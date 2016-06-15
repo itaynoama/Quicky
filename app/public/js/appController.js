@@ -35,6 +35,19 @@ quickyApp.config(function($stateProvider, $urlRouterProvider){
         templateUrl: './templates/recipesClient.html',
         controller: 'displayByTime'
     }).
+//        state('recipesByTime.favorite', {
+//            params: ['time', 'recipeName'],
+//            views: {
+//                'content@': {
+//                    templateUrl: function(stateParams) {
+//                        console.log("template");
+//                    },
+//                    constroller: function() {
+//                        cosnole.log("function");
+//                    }
+//                }
+//            }
+//        }).
     state('specificRecipe', {
           url: "/displayByTime/specific/:recipeName",
           templateUrl: "./templates/ingredientsClient.html",
@@ -45,12 +58,10 @@ quickyApp.config(function($stateProvider, $urlRouterProvider){
 
 quickyApp.controller('loginCtrl', function($scope, $http, $location) {
 	$scope.checkEmail = function(email, user) {
-        globalData.user = user;
+        globalData.googleData = user;
 		$http.get("http://localhost:3000/checkClient/" + email).success(function(data) {
-
-            globalData.userType = data.type;
-			globalData.email = email;
-            console.log(email);
+            console.log(data);
+            globalData.userData= data.data;
 			$scope.removeOnClick();
 		});
 	}
@@ -60,7 +71,7 @@ quickyApp.controller('loginCtrl', function($scope, $http, $location) {
 		elem.remove();
         var script = angular.element(document.querySelector('#googleScript'));
         script.remove();
-		if (globalData.userType == "Admin") {
+		if (globalData.userData.type == "Admin") {
 			$http.get("http://localhost:3000/admin/getUnmodified").success(function(data) {
                 if (data.type == "error") {
                     globalData.recipes = {};
@@ -92,7 +103,7 @@ quickyApp.controller('quickyCtrl', function($scope, $http){
     $scope.steps = [];
 	$scope.preparation = [];
 	$scope.cooking = [];
-	$scope.name = globalData.user.displayName;
+	$scope.name = globalData.googleData.displayName;
     $scope.notModified = globalData.recipes;
     var preparationTime = 0;
     var cookingTime = 0;
@@ -131,43 +142,90 @@ quickyApp.controller('quickyCtrl', function($scope, $http){
 });
 
 quickyApp.controller('ClientHome', function($scope, $http, $location) {
+    //markinng each favorite recipes according to client data
+    $scope.markUserFavorites = function() {
+        var size = globalData.recipes.length;
+        var favSize ; globalData.userData.favorite.length;
+        for (var i = 0; i < size; i++) {
+            console.log("first loop");
+            globalData.recipes[i].favorite = "notFavorite";
+            for(var j = 0; j < favSize; j++) {
+                console.log("escond loop");
+                if (globalData.recipes[i].name == globalData.userData.favorite[j]) {
+                    globalData.recipes[i].favorite = 'favorite';
+                }
+            }
+        }
+
+    }
+
     $scope.getAllModified = function() {
         var elem = angular.element( document.querySelector('#timeInput'));
         var time = elem[0].value;
         $http.get('http://localhost:3000/admin/getModified/' + time).success(function(data) {
-            console.log("success");
             if (data.status == 301) {
                 console.log("getModified service has failed");
             } else {
                 globalData.recipes = data;
-//                console.log(data);
+                $scope.markUserFavorites();
                 $location.path('/displayByTime/' + time);
             }
         });
-
-
-
     }
 })
 
 quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
+    $scope.checkIfInFavorites = function(recipeName) {
+        var size = globalData.userData.favorite.length;
+        var answer = false;
+        for (var i = 0; i < size; i++) {
+            if (globalData.userData.favorite[i] == recipeName) {
+                answer = true;
+            }
+        }
+        return answer;
+    }
     var time = parseInt($stateParams.time, 10);
     $scope.modifiedRecipes = globalData.recipes;
-    $scope.addToFavorites = function() {
-        console.log("favoriteeee");
-        return;
+    $scope.emptyFavoriteIcon = '../images/favorite.png';
+    $scope.fullFavoriteIcon = '../images/favoritePicked.png';
+    $scope.addToFavorites = function($index, recipeName) {
+        if ($scope.checkIfInFavorites($scope.modifiedRecipes[$index].name)) {
+            //we want to ckear it from favorites(because it 's already favorited)
+             $http.post('http://localhost:3000/admin/addToFavorites/' + recipeName, {email: globalData.userData.email})
+                 .success(function(data) {
+                    if (data.status == 301) {
+                        console.log('addFavorite service had failed');
+                    }
+                    globalData.recipes[$index].favorite = 'notFavorite';
+                    $scope.modifiedRecipes[$index].favorite = 'notFavorite';
+                    var indexOfRecipe = globalData.userData.favorite.indexOf(recipeName);
+                    if (indexOfRecipe > -1) {
+                        globalData.userData.favorite.splice(indexOfRecipe, 1);
+                    }
+                });
 
-        $http.post('http://localhost:3000/admin/addToFavorites/' + recipeName, {email: globalData.email}).success(function(data) {
-            if (data.status == 301) {
-                console.log('addFavorite service had failed');
-            }
-        });
+        }else {
+             $http.post('http://localhost:3000/admin/addToFavorites/' + recipeName, {email: globalData.userData.email})
+                 .success(function(data) {
+                    if (data.status == 301) {
+                        console.log('addFavorite service had failed');
+                    }
+                    globalData.recipes[$index].favorite = 'favorite';
+                    $scope.modifiedRecipes[$index].favorite = 'favorite';
+                    globalData.userData.favorite.push(recipeName);
+                });
+        }
     }
-
 })
 
 quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
-    document.getElementsByClassName('cover')[0].removeAttribute('class');
+    var elem = document.getElementsByTagName('body')[0];
+    if (elem.hasAttribute('class')) {
+        elem.removeAttribute('class');
+    }else {
+        elem.setAttribute('class', 'cover');
+    }
     var recipes = globalData.recipes;
 	var size = globalData.recipes.length;
 	for (var i = 0; i < size; i++) {
@@ -176,7 +234,7 @@ quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
 			break;
 		}
 	}
-//    console.log($scope.correctRecipe.steps);
+
 
 
 })

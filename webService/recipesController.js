@@ -2,16 +2,47 @@ var mongoose = require('mongoose');
 var recipes = require('./newRecipeSchema.js');
 var clients = require('./clientSchema.js');
 
-function increaseLikes(recipeName) {
+function increaseLikes(recipeName, callback) {
+    console.log("increasing likes");
 	getRecipe(recipeName, function(doc) {
-		var query = doc.update({$inc: {likes: 1}});
-		query.exec(function(err) {
+        console.log("increasing likes (before raising): " + doc.data.likes);
+        if (doc.status) {
+            var query = doc.data.update({$inc: {likes: 1}});
+            query.exec(function(err) {
 			if (err) {
 				console.log("failed incrementing the 'like' of recipe");
 			} else {
 				console.log("likes updated");
 			}
-		});
+            callback();
+            });
+        } else {
+            callback();
+        }
+
+	});
+}
+
+function decreaseLikes(recipeName, callback) {
+	getRecipe(recipeName, function(doc) {
+        console.log("decreasing likes (before decreasing): " + doc.data.likes);
+        if (doc.data) {
+            if (doc.data.likes == 0) {
+            callback();
+            return;
+            }
+            var query = doc.data.update({$inc: {likes: -1}});
+            query.exec(function(err) {
+                if (err) {
+                    console.log("failed decrementing the 'like' of recipe");
+                } else {
+                    console.log("likes decremented");
+                }
+                callback();
+            });
+        } else {
+            callback();
+        }
 	});
 }
 
@@ -44,15 +75,12 @@ exports.getUnmodifiedRecipes = function(req, res) {
 }
 
 exports.getModifiedRecipes = function(time, callback) {
-    console.log("getModified called");
 	var query = recipes.find();
 	query.where('timers.total', time).select('-_id');
 	query.exec(function(err, docs) {
         if (err || !docs) {
             callback({status: false});
         } else {
-            var json = JSON.stringify(docs, null, 4);
-            console.log("success!! - achieved " + docs.length + " results");
             callback({status: true, data: docs});
         }
 	})
@@ -104,12 +132,11 @@ function getClient(email, callback) {
 					callback({type: false, data: error2});
 				} else {
 					console.log("new client created:\n" + doc);
-					callback({type: true, data: doc.type});
+					callback({type: true, data: doc});
 				}
 			});
 		} else {
-			if (doc.type == "Admin") callback({type: true, data: doc.type});
-			else callback({type: true, data: doc.type});
+			callback({type: true, data: doc});
 		}
 	})
 }
@@ -119,19 +146,37 @@ exports.getClient = getClient;
 exports.addFavorite = function(recipeName, email, callback) {
     getClient(email, function(answer) {
         if (!answer.type) {
-            console.log(answer.data);
             callback({status: false});
         } else {
             var client = answer.data;
-            var query = client.update({$push:{favorite: recipeName}});
+            var size = client.favorite.length;
+            var exist = false
+            console.log("client favorites: " + client.favorite);
+            for (var i = 0; i < size; i++) {
+                if (client.favorite[i] == recipeName) {
+                    exist = true;
+                    break;
+                }
+            }
+            var query;
+            if (exist) query = client.update({$pull:{favorite: recipeName}});
+            else query = client.update({$push:{favorite: recipeName}});
             query.exec(function(err) {
 				if (err) {
 					console.log('failed to update client');
                     callback({status: false});
 				} else {
 					console.log('success in updating client');
-                    increaseLikes(recipeName);
-                    callback({status: true});
+                    if (exist) {
+                        decreaseLikes(recipeName, function() {
+                            callback({status: true});
+                        });
+                    }else{
+                        increaseLikes(recipeName, function() {
+                            callback({status: true});
+                        });
+                    }
+
 				}
 			});
         }
