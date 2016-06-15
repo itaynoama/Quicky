@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-sm-6 col-md-4" ng-repeat="recipe in notModified">
 		<div class="thumbnail">
-			<img src="{{recipe.imageURL}}" alt="image of recipe">
+			<img ng-src="{{recipe.imageURL}}" alt="image of recipe">
 		  	<div class="caption">
 				<h3>{{recipe.displayName}}</h3>
 				<p ng-model="recipeName">{{recipe.description}}</p>
