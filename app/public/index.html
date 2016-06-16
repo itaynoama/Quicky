@@ -12,8 +12,7 @@
 	<body class="cover">
 		<div id="gConnect" class="button" ng-controller="loginCtrl">
 			<button class="g-signin"
-				  data-scope="https://www.googleapis.com/auth/plus.login"
-				  data-scope="email"
+				  data-scope="https://www.googleapis.com/auth/plus.login email"
 				  data-clientid="931089649208-rvd2fv4fdooju5h258deuat3if5j3j33.apps.googleusercontent.com"
 				  data-callback="onSignInCallback"
 				  data-theme="dark"
@@ -25,6 +24,7 @@
 				*/
 
 				function onSignInCallback(resp) {
+                    console.log('signIn');
                     if (resp['status']['signed_in'] && resp['status']['method'] == 'PROMPT'){
                         gapi.client.load('plus', 'v1', apiClientLoaded);
                     }
@@ -34,6 +34,7 @@
 				* Sets up an API call after the Google API client loads.
 				*/
 				function apiClientLoaded() {
+                    console.log('api');
 					gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
 				}
 
