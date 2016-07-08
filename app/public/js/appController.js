@@ -35,19 +35,6 @@ quickyApp.config(function($stateProvider, $urlRouterProvider){
 		  templateUrl: './templates/recipesClient.html',
 		  controller: 'displayByTime'
 	 }).
-//        state('recipesByTime.favorite', {
-//            params: ['time', 'recipeName'],
-//            views: {
-//                'content@': {
-//                    templateUrl: function(stateParams) {
-//                        console.log("template");
-//                    },
-//                    constroller: function() {
-//                        cosnole.log("function");
-//                    }
-//                }
-//            }
-//        }).
 	 state('specificRecipe', {
 			 url: "/displayByTime/specific/:recipeName",
 			 templateUrl: "./templates/ingredientsClient.html",
@@ -58,6 +45,7 @@ quickyApp.config(function($stateProvider, $urlRouterProvider){
 
 quickyApp.controller('loginCtrl', function($scope, $http, $location) {
 	$scope.checkEmail = function(email, user) {
+        console.log(user);
 		  globalData.googleData = user;
 		$http.get("https://quickyfinal.herokuapp.com/checkClient/" + email).success(function(data) {
 				console.log(data);
