@@ -164,14 +164,12 @@ nav > section > p > span {
 	bottom: -5px;
 	right: 0;
 }
-
 input[type=range] {
   -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
   width: 100%; /* Specific width is required for Firefox. */
 	height: 5px;
 	background: #ffffff;
 }
-
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: 1px solid #000000;
@@ -183,13 +181,9 @@ input[type=range]::-webkit-slider-thumb {
   margin-top: 0px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
 }
-
-
 .form-control {
 	width: 60%;
 }
-
-
 
 /******* Home Admin Style ******/
 
