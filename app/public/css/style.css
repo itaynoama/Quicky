@@ -59,36 +59,56 @@ nav > section > p {
     font-size: 1.5em;
     font-weight: bold;
     margin-top: 35%;
-    margin-left: 10%;
+    margin-left: 69%;
 }
 nav > section > p > span {
-    margin-left: 20%;
+    margin-left: 100%;
     font-weight: 100;
 }
-.hamburger {
-    padding-top: 15%;
-}
-.menu {
-    background: #ffffff;
-    width: 20%;
-    height: 4px;
-    margin-top: 2.5%;
-    border-radius: 4px;
-}
-.search {
-    background: url(../images/search.png) no-repeat;
-    width: 21%;
-    height: 25px;
-    margin-left: 25%;
+.btn {
+    background: url(../images/menu.png) no-repeat !important;
+    width: 14%;
     float: left;
+    height: 60px;
+    margin-top: 9%;
+    border-style: none;
 }
-.filter {
-    background: url(../images/filter.png) no-repeat;
+.btn-primary {
+    background: url(../images/filter.png) no-repeat !important;
     width: 17%;
     height: 25px;
     float: left;
     margin-left: 13%;
     margin-top: 1%;
+    border-style: none;
+}
+.btn-success {
+   background: url(../images/search.png) no-repeat !important;
+    float: left;
+    width: 21%;
+    height: 25px;
+    margin-left: 25%;
+    border-style: none;
+}
+.sort > .dropdown > .dropdown-menu {
+    top: 61px !important;
+}
+.sort > .dropdown > .left {
+    left: -31px;
+}
+.dropdown-menu {
+    top: 117px !important;
+    border-radius: 0px !important;
+}
+.dropdown-menu-right {
+    right: 91% !important;
+}
+.sort > .center > ul {
+    text-align: center;
+}
+.dropdown-menu .divider {
+    margin: 9px 18px 0 18px !important;
+    background-color: #000 !important;
 }
 .cover1 > p {
     font-family: arial;
@@ -97,7 +117,6 @@ nav > section > p > span {
     margin-top: 4%;
     font-size: 1.3em;
 }
-
 .rangeBarWrapper {
 	position: relative;
 	width: 100%;
@@ -145,14 +164,12 @@ nav > section > p > span {
 	bottom: -5px;
 	right: 0;
 }
-
 input[type=range] {
   -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
   width: 100%; /* Specific width is required for Firefox. */
 	height: 5px;
 	background: #ffffff;
 }
-
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: 1px solid #000000;
@@ -164,13 +181,9 @@ input[type=range]::-webkit-slider-thumb {
   margin-top: 0px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
 }
-
-
 .form-control {
 	width: 60%;
 }
-
-
 
 /******* Home Admin Style ******/
 

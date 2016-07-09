@@ -1,19 +1,46 @@
 <div id="wrapper">
    <div class="navigation">
-        <nav class="navbar-fixed-top">
-           <section class="hamburger">
-               <div class="menu"></div>
-               <div class="menu"></div>
-               <div class="menu"></div>
-           </section>
-           <section>
-               <p>quicky<br><span>vegan</span></p>
-           </section>
-           <section class="sort">
-               <div class="search"></div>
-               <div class="filter"></div>
-           </section>
-        </nav>
+        <nav>
+       <div class="dropdown">
+           <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Profile</a></li>
+              <li class="divider"></li>
+              <li><a href="#">My Recpies</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Setting</a></li>
+            </ul>
+       </div>
+	   <section>
+		   <p>quicky<br><span>vegan</span></p>
+	   </section>
+	   <section class="sort">
+		   <div class="dropdown center">
+               <button class="btn-success dropdown-toggle" type="button" data-toggle="dropdown"></button>
+               <ul class="dropdown-menu dropdown-menu-right center">
+                   <li><a href="#">Breakfast</a></li>
+                   <li class="divider"></li>
+                   <li><a href="#">Lunch</a></li>
+                   <li class="divider"></li>
+                   <li><a href="#">Dinner</a></li>
+                   <li class="divider"></li>
+                   <li><a href="#">Snack</a></li>
+                   <li class="divider"></li>
+                   <li><a href="#">Dessert</a></li>
+               </ul>
+           </div>
+		   <div class="dropdown">
+               <button class="btn-primary dropdown-toggle" type="button" data-toggle="dropdown"></button>
+               <ul class="dropdown-menu left">
+                   <li><a href="#">Time</a></li>
+                   <li class="divider"></li>
+                   <li><a href="#">Popular</a></li>
+                   <li class="divider"></li>
+                   <li><a href="#">Easy quicky</a></li>
+               </ul>
+           </div>
+	   </section>
+	</nav>
     </div>
     <div class="thumbnailVer" ng-repeat="recipe in modifiedRecipes">
         <div class="favorite">
