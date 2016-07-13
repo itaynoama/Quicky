@@ -57,22 +57,6 @@ app.post('/admin/addToFavorites/:recipeName', function(req, res) {
     });
 })
 
-//app.get('/admin/updateLikes/:recipeName', function(req, res) {
-//	recipesController.increaseLikes(req.params.recipeName, function(data) {
-//        if (data.status) {
-//            res.status(200);
-//        } else {
-//            res.status(301);
-//        }
-//        res.send();
-//    });
-//})
-
-//app.get('admin/getRecipe/:recipeName', function(req,res) {
-//    recipesController.getRecipe(req.params.recipeName)
-//});
-
-
 
 app.listen(port);
 console.log('listening on port 3000');
