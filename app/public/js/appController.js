@@ -55,8 +55,14 @@ quickyApp.controller('loginCtrl', function($scope, $http, $location) {
 	}
 
 	$scope.removeOnClick = function() {
-		var elem = angular.element( document.querySelector( '#gConnect' ) );
-		elem.remove();
+		var login = angular.element( document.querySelector( '#gConnect' ) );
+        var logo = angular.element( document.querySelector( '#logo' ) );
+		login.remove();
+        logo.remove();
+        if(globalData.userData.type == "Admin") {
+            document.getElementsByTagName('body')[0].className = "cover";
+        }
+
 		  var script = angular.element(document.querySelector('#googleScript'));
 		  script.remove();
 		if (globalData.userData.type == "Admin") {
@@ -265,12 +271,12 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
 })
 
 quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
-	 var elem = document.getElementsByTagName('body')[0];
-	 if (elem.hasAttribute('class')) {
-		  elem.removeAttribute('class');
-	 }else {
-		  elem.setAttribute('class', 'cover');
-	 }
+//	 var elem = document.getElementsByTagName('body')[0];
+//	 if (elem.hasAttribute('class')) {
+//		  elem.removeAttribute('class');
+//	 }else {
+//		  elem.setAttribute('class', 'cov);
+//	 }
 	 var recipes = globalData.recipes;
 	var size = globalData.recipes.length;
 	for (var i = 0; i < size; i++) {
