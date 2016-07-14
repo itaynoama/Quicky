@@ -140,16 +140,16 @@ quickyApp.controller('ClientHome', function($scope, $http, $location) {
 		  var size = globalData.recipes.length;
 		  var favSize ; globalData.userData.favorite.length;
 		  for (var i = 0; i < size; i++) {
-				console.log("first loop");
 				globalData.recipes[i].favorite = "notFavorite";
 				for(var j = 0; j < favSize; j++) {
-					 console.log("escond loop");
-					 if (globalData.recipes[i].name == globalData.userData.favorite[j]) {
-						  globalData.recipes[i].favorite = 'favorite';
-					 }
+				    if (globalData.recipes[i].name == globalData.userData.favorite[j]) {
+				        globalData.recipes[i].favorite = 'favorite';
+                        break;
+				    }
 				}
 		  }
-
+         console.log('user\'s favoritr: ' + globalData.userData.favorite);
+         console.log('all recipes: ' + globalData.recipes);
 	 }
 
 	 $scope.getAllModified = function() {
