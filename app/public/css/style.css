@@ -2,7 +2,6 @@
 * {
     margin: 0 auto;
     padding: 0;
-
 }
 
 main, section, nav, footer, header, aside {
@@ -94,14 +93,23 @@ nav > section > p > span {
     top: 61px !important;
 }
 .sort > .dropdown > .left {
-    left: -31px;
+    left: -41px;
 }
 .dropdown-menu {
     top: 117px !important;
     border-radius: 0px !important;
 }
 .dropdown-menu-right {
-    right: 91% !important;
+    right: 68% !important;
+    min-width: 219px !important;
+    height: 230px;
+}
+.dropdown > ul > li > a {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+.sort > .left > ul {
+    text-align: left;
 }
 .sort > .center > ul {
     text-align: center;
@@ -165,28 +173,70 @@ nav > section > p > span {
 	right: 0;
 }
 input[type=range] {
-  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
-  width: 100%; /* Specific width is required for Firefox. */
+    -webkit-appearance: none;
+    width: 100%;
 	height: 5px;
-	background: #ffffff;
+    background: #ffffff;
 }
 input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  border: 1px solid #000000;
-  height: 16px;
-  width: 16px;
-  border-radius: 3px;
-  background: #ffffff;
-  cursor: pointer;
-  margin-top: 0px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+    -webkit-appearance: none;
+    border: 1px solid #000000;
+    height: 16px;
+    width: 16px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer;
+    margin-top: 0px;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 .form-control {
 	width: 60%;
 }
+.btn-warning {
+    background-color: #4CBC4C !important;
+    background-image: none !important;
+    color: #000 !important;
+    border-radius: 0px !important;
+}
+.btn-warning.btn-lg {
+    font-size: 21px !important;
+    font-weight: bold;
+}
+#gConnect {
+    position: absolute;
+    top: 57%;
+    left: 46%;
+}
+.modal-body > p {
+    color: #000 !important;
+}
+.modal-body {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+.modal-footer .btn {
+    width: 20%;
+    margin-top: 0;
+    height: 37px !important;
+}
+.modal-footer {
+    padding: 10px !important;
+}
+.modal-header {
+    background: #4CBC4C;
+    border-bottom: none !important;
+}
+
 
 /******* Home Admin Style ******/
-
+.thumbnail > .caption > p > .btn {
+    float: none;
+    width: 31% !important;
+    background: none !important;
+    height: 36px !important;
+    margin-top: 0 !important;
+}
 .cover {
     background: url(../images/coverRecipe.jpg) no-repeat center center fixed;
     min-height: 100%;
@@ -202,7 +252,7 @@ input[type=range]::-webkit-slider-thumb {
     margin: 0px !important;
 }
 .panel {
-    width: 60%;
+    width: 68%;
     margin-left: 4%;
 }
 .submit {
@@ -228,9 +278,8 @@ h1 small {
 h2 {
     color: #fff !important;
 }
-
 .description {
-    width: 60% !important;
+    width: 43% !important;
 }
 
 .description > input[type=text] {
@@ -272,6 +321,36 @@ h2 {
     font-weight: bold;
 }
 
+/******* Recipe Display Admin Style ******/
+.panel > .form-inline > .btn {
+    float: none;
+    width: 16% !important;
+    background: none !important;
+    height: 36px !important;
+    margin-top: 0 !important;
+}
+.submit > .btn-primary {
+    float: none;
+    width: 100% !important;
+    background-image: none !important;
+    height: 36px !important;
+    margin-top: 0 !important;
+    background-color: #337ab7 !important;
+}
+
+
+/******* homepage quicky ******/
+#logo {
+    background: url('../images/logo.png') no-repeat;
+    width: 100%;
+    height: 220px;
+    background-size: 50% 100%;
+    position: relative;
+    top: 128px;
+    left: 26%;
+}
+
+
 @media (min-width: 992px) {
     .col-md-4 {
         width: 25% !important;
@@ -288,6 +367,20 @@ h2 {
     .wrapper {
         background: url(../images/cover.jpg) no-repeat center center fixed;
         position: absolute;
+    }
+    #logo {
+        background: url('../images/logo.png') no-repeat;
+        width: 100%;
+        height: 220px;
+        background-size: 100% 100%;
+        position: relative;
+        top: 128px;
+        left: 0;
+    }
+    #gConnect {
+        position: absolute;
+        top: 50%;
+        left: 33%;
     }
     .cover {
         background: url(../images/coverRecipe.jpg) no-repeat fixed;
@@ -320,6 +413,9 @@ h2 {
     }
     .panel {
         margin-left: 17%;
+    }
+    .panel > .form-inline > .btn {
+        width: 33%;
     }
     .navigation {
         position: absolute;
@@ -373,20 +469,62 @@ h2 {
         background: #fff;
     }
     .ingredient > .frame {
-        margin-top: -39%;
+        margin-top: -41%;
+        position: relative;
     }
     .ingredient > .frame h2 {
         color: #000 !important;
-    }
-    .ingredient nav {
-        background: #
+        text-decoration: none;
     }
     .ingredient > .frame h3 {
-       padding-right: 26%;
+        padding-right: 26%;
+    }
+    .ingredient > .frame > section h3 {
+        color: #00B200;
+    }
+    .ingredient > .frame > p {
+        padding-bottom: 4%;
     }
     .ingredient > img {
         width: 100%;
         height: 350px;
+        opacity: 0.6;
+    }
+    .line {
+        width: 100%;
+        margin-top: 10%;
+    }
+    .line > p > .min {
+        margin-left: 3%;
+    }
+    .line p {
+        padding-left: 26%;
+    }
+    .line > p > .time {
+        border: 2px solid #000;
+        margin-left: 3%;
+        padding: 4px 15px 4px 15px;
+    }
+    .dividerPrep {
+        height: 4px;
+        width: 40%;
+        margin-left: 22%;
+        display: block;
+        background-color: #00FF00;
+    }
+    .dividerCook {
+       height: 4px;
+        width: 50%;
+        margin-left: 22%;
+        display: block;
+        background-color: #009900;
+    }
+    .dividerTotal {
+        height: 4px;
+        width: 70%;
+        margin-left: 22%;
+        display: block;
+        background-color: #7fff7f;
     }
 }
 

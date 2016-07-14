@@ -55,8 +55,14 @@ quickyApp.controller('loginCtrl', function($scope, $http, $location) {
 	}
 
 	$scope.removeOnClick = function() {
-		var elem = angular.element( document.querySelector( '#gConnect' ) );
-		elem.remove();
+		var login = angular.element( document.querySelector( '#gConnect' ) );
+        var logo = angular.element( document.querySelector( '#logo' ) );
+		login.remove();
+        logo.remove();
+        if(globalData.userData.type == "Admin") {
+            document.getElementsByTagName('body')[0].className = "cover";
+        }
+
 		  var script = angular.element(document.querySelector('#googleScript'));
 		  script.remove();
 		if (globalData.userData.type == "Admin") {
@@ -68,7 +74,6 @@ quickyApp.controller('loginCtrl', function($scope, $http, $location) {
 						  globalData.recipes = data;
 					 $location.path('/adminPage');
 					 }
-
 	 		});
 		} else {
 			$location.path('/home');
@@ -89,9 +94,9 @@ quickyApp.controller('displayRecipe', function($scope, $stateParams) {
 
 quickyApp.controller('quickyCtrl', function($scope, $http){
 	 $scope.steps = [];
-	$scope.preparation = [];
-	$scope.cooking = [];
-	$scope.name = globalData.googleData.displayName;
+	 $scope.preparation = [];
+	 $scope.cooking = [];
+	 $scope.name = globalData.googleData.displayName;
 	 $scope.notModified = globalData.recipes;
 	 var preparationTime = 0;
 	 var cookingTime = 0;
@@ -205,15 +210,73 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
 					 });
 		  }
 	 }
+
+     //------Filter By Category--------
+
+     $scope.showOnlyEntree = function() {
+         $scope.modifiedRecipes = globalData.recipes;
+         var size = globalData.recipes.length;
+         for(var i=0; i < size; i++){
+             if($scope.modifiedRecipes[i].category != "Entree") {
+                 $scope.modifiedRecipes.splice(i,1);
+                 i--;
+                 size--;
+             }
+         }
+     }
+     $scope.showOnlyLunch = function() {
+         $scope.modifiedRecipes = globalData.recipes;
+         var size = globalData.recipes.length;
+         for(var i=0; i < size; i++){
+             if($scope.modifiedRecipes[i].category != "Lunch") {
+                 $scope.modifiedRecipes.splice(i,1);
+                 i--;
+                 size--;
+             }
+         }
+     }
+     $scope.showOnlyPasta = function() {
+         $scope.modifiedRecipes = globalData.recipes;
+         var size = globalData.recipes.length;
+         for(var i=0; i < size; i++){
+             if($scope.modifiedRecipes[i].category != "Pasta") {
+                 $scope.modifiedRecipes.splice(i,1);
+                 i--;
+                 size--;
+             }
+         }
+     }
+     $scope.showOnlySnack = function() {
+         $scope.modifiedRecipes = globalData.recipes;
+         var size = globalData.recipes.length;
+         for(var i=0; i < size; i++){
+             if($scope.modifiedRecipes[i].category != "Dinner") {
+                 $scope.modifiedRecipes.splice(i,1);
+                 i--;
+                 size--;
+             }
+         }
+     }
+      $scope.showOnlyDessert = function() {
+         $scope.modifiedRecipes = globalData.recipes;
+         var size = globalData.recipes.length;
+         for(var i=0; i < size; i++){
+             if($scope.modifiedRecipes[i].category != "Dinner") {
+                 $scope.modifiedRecipes.splice(i,1);
+                 i--;
+                 size--;
+             }
+         }
+     }
 })
 
 quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
-	 var elem = document.getElementsByTagName('body')[0];
-	 if (elem.hasAttribute('class')) {
-		  elem.removeAttribute('class');
-	 }else {
-		  elem.setAttribute('class', 'cover');
-	 }
+//	 var elem = document.getElementsByTagName('body')[0];
+//	 if (elem.hasAttribute('class')) {
+//		  elem.removeAttribute('class');
+//	 }else {
+//		  elem.setAttribute('class', 'cov);
+//	 }
 	 var recipes = globalData.recipes;
 	var size = globalData.recipes.length;
 	for (var i = 0; i < size; i++) {
@@ -222,7 +285,5 @@ quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
 			break;
 		}
 	}
-
-
-
 })
+
