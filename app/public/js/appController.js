@@ -246,11 +246,11 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
              }
          }
      }
-     $scope.showOnlySnack = function() {
+     $scope.showOnlyAppetizer = function() {
          $scope.modifiedRecipes = globalData.recipes;
          var size = globalData.recipes.length;
          for(var i=0; i < size; i++){
-             if($scope.modifiedRecipes[i].category != "Dinner") {
+             if($scope.modifiedRecipes[i].category != "Appetizer") {
                  $scope.modifiedRecipes.splice(i,1);
                  i--;
                  size--;
@@ -261,7 +261,7 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
          $scope.modifiedRecipes = globalData.recipes;
          var size = globalData.recipes.length;
          for(var i=0; i < size; i++){
-             if($scope.modifiedRecipes[i].category != "Dinner") {
+             if($scope.modifiedRecipes[i].category != "Dessert") {
                  $scope.modifiedRecipes.splice(i,1);
                  i--;
                  size--;

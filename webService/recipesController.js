@@ -184,4 +184,3 @@ exports.addFavorite = function(recipeName, email, callback) {
 }
 
 
-
