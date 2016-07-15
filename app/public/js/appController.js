@@ -268,6 +268,17 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
              }
          }
      }
+     $scope.showOnlyEasyQuicky = function() {
+         $scope.modifiedRecipes = globalData.recipes;
+         var size = globalData.recipes.length;
+         for(var i=0; i < size; i++){
+             if($scope.modifiedRecipes[i].features != "Easy quicky") {
+                 $scope.modifiedRecipes.splice(i,1);
+                 i--;
+                 size--;
+             }
+         }
+     }
 })
 
 quickyApp.controller('recipeIngredients', function($scope, $stateParams) {

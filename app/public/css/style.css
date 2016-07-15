@@ -74,7 +74,7 @@ nav > section > p > span {
 }
 .btn-primary {
     background: url(../images/filter.png) no-repeat !important;
-    width: 17%;
+    width: 18%;
     height: 25px;
     float: left;
     margin-left: 13%;
@@ -88,6 +88,7 @@ nav > section > p > span {
     height: 25px;
     margin-left: 25%;
     border-style: none;
+    -webkit-box-shadow: none !important;
 }
 .sort > .dropdown > .dropdown-menu {
     top: 61px !important;
@@ -220,6 +221,7 @@ input[type=range]::-webkit-slider-thumb {
     width: 20%;
     margin-top: 0;
     height: 37px !important;
+    border: 2px solid #000;
 }
 .modal-footer {
     padding: 10px !important;
@@ -369,7 +371,127 @@ h2 {
     .col-sm-6 {
         width: 50%;
     }
-
+}
+@media (min-width: 401px) and (max-width: 736px){
+    #logo {
+        background: url('../images/logo.png') no-repeat;
+        width: 100%;
+        height: 220px;
+        background-size: 100% 107%;
+        position: relative;
+        top: 200px;
+        left: 3%;
+    }
+    #gConnect {
+        position: absolute;
+        top: 55%;
+        left: 38%;
+    }
+    nav > .sort {
+        float: right;
+        margin-top: 0;
+        padding-top: 14%;
+    }
+    .ingredient {
+        background: #fff;
+    }
+    .ingredient > .frame {
+        margin-top: -41%;
+        position: relative;
+    }
+    .ingredient > .frame h2 {
+        color: #000 !important;
+        text-decoration: none;
+    }
+    .ingredient > .frame h3 {
+        padding-right: 26%;
+    }
+    .ingredient > .frame > section h3 {
+        color: #00B200;
+    }
+    .ingredient > .frame > p {
+        padding-bottom: 4%;
+    }
+    .ingredient > img {
+        width: 100%;
+        height: 350px;
+        opacity: 0.6;
+    }
+    .line {
+        width: 100%;
+        margin-top: 10%;
+    }
+    .line > p > .min {
+        margin-left: 3%;
+    }
+    .line p {
+        padding-left: 26%;
+    }
+    .line > p > .time {
+        border: 2px solid #000;
+        margin-left: 3%;
+        padding: 4px 15px 4px 15px;
+    }
+    .dividerPrep {
+        height: 4px;
+        width: 40%;
+        margin-left: 22%;
+        display: block;
+        background-color: #00FF00;
+    }
+    .dividerCook {
+       height: 4px;
+        width: 50%;
+        margin-left: 22%;
+        display: block;
+        background-color: #009900;
+    }
+    .dividerTotal {
+        height: 4px;
+        width: 70%;
+        margin-left: 22%;
+        display: block;
+        background-color: #7fff7f;
+    }
+    .cover1 > .mainCatgry {
+        margin-left: -11%;
+    }
+     .thumbnailVer > a > img {
+        width: 100%;
+        height: 350px;
+        margin-top: -3px;
+    }
+    .thumbnailVer a {
+        text-decoration: none !important;
+    }
+    .thumbnailVer > a > .caption {
+        margin-top: -22%;
+        color: #fff;
+        text-align: left;
+    }
+    .thumbnailVer > a > .caption h3 {
+        padding-left: 15%;
+        padding-right: 16%;
+        position: relative;
+        top: -67px;
+    }
+    .navigation {
+        position: absolute;
+        z-index: 100;
+        width: 100%;
+    }
+    .favorite img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    .favorite {
+        position: absolute;
+        margin-left: 84%;
+        margin-top: 70%;
+    }
+    .frame {
+        width: 80%;
+    }
 }
 @media (max-width: 400px) {
     .wrapper {
@@ -383,12 +505,12 @@ h2 {
         background-size: 100% 100%;
         position: relative;
         top: 128px;
-        left: 0;
+        left: 3%;
     }
     #gConnect {
         position: absolute;
         top: 50%;
-        left: 33%;
+        left: 38%;
     }
     .cover {
         background: url(../images/coverRecipe.jpg) no-repeat fixed;
@@ -433,6 +555,7 @@ h2 {
     .thumbnailVer > a > img {
         width: 100%;
         height: 350px;
+        margin-top: -3px;
     }
     .thumbnailVer a {
         text-decoration: none !important;
@@ -533,6 +656,9 @@ h2 {
         margin-left: 22%;
         display: block;
         background-color: #7fff7f;
+    }
+    .cover1 > .mainCatgry {
+        margin-left: -11%;
     }
 }
 
