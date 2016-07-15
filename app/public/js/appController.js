@@ -5,6 +5,8 @@ var globalData = {
 
 };
 
+
+
 quickyApp.config(function($stateProvider, $urlRouterProvider){
 
 		// For any unmatched url, send to /route1
@@ -39,7 +41,12 @@ quickyApp.config(function($stateProvider, $urlRouterProvider){
 			 url: "/displayByTime/specific/:recipeName",
 			 templateUrl: "./templates/ingredientsClient.html",
 			 controller: 'recipeIngredients'
-			 })
+			 }).
+     state("timeBar", {
+            url: "/displayByTime/specific/timeBar/:recipeName",
+            templateUrl: "./templates/timeBar.html",
+            controller: "timeBarControl"
+    })
 
 })
 
@@ -270,7 +277,7 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
      }
 })
 
-quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
+quickyApp.controller('recipeIngredients', function($scope, $stateParams, $location) {
 //	 var elem = document.getElementsByTagName('body')[0];
 //	 if (elem.hasAttribute('class')) {
 //		  elem.removeAttribute('class');
@@ -285,5 +292,57 @@ quickyApp.controller('recipeIngredients', function($scope, $stateParams) {
 			break;
 		}
 	}
+
+    $scope.startCooking = function() {
+        $location.path('/displayByTime/specific/timeBar/' + $scope.correctRecipe.name)
+    }
+})
+
+quickyApp.controller('timeBarControl', function($scope, $stateParams) {
+    var recipes = globalData.recipes;
+	var size = recipes.length;
+	for (var i = 0; i < size; i++) {
+		if (recipes[i].name === $stateParams.recipeName) {
+			$scope.correctRecipe = recipes[i];
+			break;
+		}
+	}
+    function createList(prep, cook) {
+        var array = [];
+        for (var i of prep) {
+            array.push({value: i.time, img: i.imageURL});
+        }
+        for (var i of cook) {
+            array.push({value: i.time, img: i.imageURL});
+        }
+        return array;
+    }
+    console.log($scope.correctRecipe);
+    var ingredients = $scope.correctRecipe.ingredients;
+    var mainKind = ingredients.main.kind;
+    var sideKind = ingredients.side.kind;
+    var mainPreparation = [];
+    var sidePreparation = [];
+    var mainCooking = [];
+    var sideCooking = [];
+    $scope.kinds = {};
+    //console.log($scope.correctRecipe.steps.preparation);
+    for (var prep of $scope.correctRecipe.steps.preparation) {
+        if (prep.kind == mainKind) mainPreparation.push(prep);
+        else sidePreparation.push(prep);
+    }
+    for (var cook of $scope.correctRecipe.steps.cooking) {
+        if (cook.kind == mainKind) mainCooking.push(cook);
+        else sideCooking.push(cook);
+    }
+    $scope.kinds.main = {preparation: mainPreparation, cooking: mainCooking};
+    $scope.kinds.side = {preparation: sidePreparation, cooking: sideCooking};
+    //console.log($scope.kinds);
+    var mainList = createList($scope.kinds.main.preparation, $scope.kinds.main.cooking);
+    var sideList = createList($scope.kinds.side.preparation, $scope.kinds.side.cooking);
+    console.log("main list:\n" + mainList);
+    console.log("side list:\n" + sideList);
+    timeKnots.draw("#timeline1", mainList, {horizontalLayout: false, color: "#669", color2: "#a0b91b", height: 600, width:50, class: "pic",  background: "#a32323"});
+
 })
 

@@ -25,7 +25,6 @@
 				*/
 
 				function onSignInCallback(resp) {
-                    console.log('signIn');
                     if (resp['status']['signed_in'] && resp['status']['method'] == 'PROMPT'){
                         gapi.client.load('plus', 'v1', apiClientLoaded);
                     }
@@ -35,7 +34,6 @@
 				* Sets up an API call after the Google API client loads.
 				*/
 				function apiClientLoaded() {
-                    console.log('api');
 					gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
 				}
 
@@ -45,7 +43,6 @@
 				* @param resp The API response object with the user email and profile information.
 				*/
 				function handleEmailResponse(resp) {
-                    console.log(resp);
 					var primaryEmail;
 					for (var i=0; i < resp.emails.length; i++) {
 				  		if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
@@ -55,6 +52,8 @@
   			</script>
 		</div>
 		<div ui-view></div>
+		<script src="./js/d3.v2.min.js"></script>
+        <script src="./js/timeknots.js"></script>
 		<script src='./js/lib/angular/angular.min.js'></script>
 		<script src="./js/lib/angular/angular-ui-router.min.js"></script>
 		<script src="./js/appController.js"></script>
