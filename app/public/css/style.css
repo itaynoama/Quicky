@@ -7,12 +7,6 @@
 main, section, nav, footer, header, aside {
     display: block;
 }
-@media (max-width:590px) {
-    #wrapper {
-        width: 100%;
-        height: 627px;
-    }
-}
 section p {
     color: #fff;
 }
@@ -80,6 +74,7 @@ nav > section > p > span {
     margin-left: 13%;
     margin-top: 1%;
     border-style: none;
+    box-shadow: none;
 }
 .btn-success {
    background: url(../images/search.png) no-repeat !important;
@@ -456,6 +451,18 @@ h2 {
         width: 50%;
     }
 }
+@media (max-width:590px) {
+    #wrapper {
+        width: 100%;
+        height: 670px;
+    }
+}
+@media (min-width:414px) {
+    #wrapper {
+        width: 100%;
+        height: 736px;
+    }
+}
 @media (min-width: 401px) and (max-width: 736px){
     #logo {
         background: url('../images/logo.png') no-repeat;
@@ -538,7 +545,7 @@ h2 {
         background-color: #7fff7f;
     }
     .cover1 > .mainCatgry {
-        margin-left: -11%;
+        margin-left: -7%;
     }
      .thumbnailVer > a > img {
         width: 100%;
@@ -586,6 +593,9 @@ h2 {
     }
     .panels > .panel-default > .panel-body {
         font-size: 10px;
+    }
+    .cover1 > .mainCatgry {
+        margin-top: 24%;
     }
 }
 @media (max-width: 400px) {
@@ -670,9 +680,6 @@ h2 {
         float: right;
         margin-top: 0;
         padding-top: 14%;
-    }
-    #wrapper {
-        margin-top: -5%;
     }
     .favorite {
         position: absolute;
