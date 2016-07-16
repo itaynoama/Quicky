@@ -5,6 +5,10 @@ var globalData = {
 
 };
 
+//time picking display
+function show_value(x) {
+    document.getElementById("slider_value").innerHTML=x;
+}
 
 
 quickyApp.config(function($stateProvider, $urlRouterProvider){
