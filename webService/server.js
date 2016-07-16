@@ -33,7 +33,7 @@ app.get('/admin/getModified/:time', function(req, res) {
 
 app.post('/admin/updateSteps/:recipeName', function(req, res) {
 
-    recipesController.updateSteps(req.params.recipeName, req.body.steps,req.body.prepare, req.body.cook, function(data) {
+    recipesController.updateSteps(req.params.recipeName, req.body.steps,req.body.prepare, req.body.cook, req.body.total, function(data) {
         if (data.status) res.status(200);
         else res.status(301);
         res.send();
@@ -54,6 +54,12 @@ app.post('/admin/addToFavorites/:recipeName', function(req, res) {
                 res.status(301);
             }
         res.send();
+    });
+})
+
+app.post('/admin/getFavorites', function(req, res) {
+    recipesController.getFavorites(req.body.favor, function(data) {
+        res.json(data);
     });
 })
 

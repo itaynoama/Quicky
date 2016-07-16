@@ -33,7 +33,10 @@ quickyApp.config(function($stateProvider, $urlRouterProvider){
 		  controller: 'ClientHome'
 	 }).
 	 state('recipesByTime', {
-		  url: "/displayByTime/:time",
+		  url: "/displayByTime/:favorite",
+            params :{
+        favorite: null
+    },
 		  templateUrl: './templates/recipesClient.html',
 		  controller: 'displayByTime'
 	 }).
@@ -100,22 +103,35 @@ quickyApp.controller('displayRecipe', function($scope, $stateParams) {
 });
 
 quickyApp.controller('quickyCtrl', function($scope, $http){
-	 $scope.steps = [];
-	 $scope.preparation = [];
-	 $scope.cooking = [];
-	 $scope.name = globalData.googleData.displayName;
-	 $scope.notModified = globalData.recipes;
-	 var preparationTime = 0;
-	 var cookingTime = 0;
+    $scope.steps = [];
+    $scope.preparation = [];
+    $scope.cooking = [];
+    $scope.name = globalData.googleData.displayName;
+    $scope.notModified = globalData.recipes;
+    var preparationTime = 0;
+    var cookingTime = 0;
+    var mainTotalTime = 0;
+    var sideTotalTime = 0;
 
-	 $scope.addPreparationSteps = function (prepare, prepTime) {
-		  $scope.preparation.push({action: prepare, time: prepTime});
-		  preparationTime += prepTime;
-	 };
 
-	$scope.addCookingSteps = function (toCook, cookTime) {
-		  $scope.cooking.push({action: toCook, time: cookTime});
+    $scope.addPreparationSteps = function (prepare, prepTime, prepKind) {
+        $scope.preparation.push({action: prepare, time: prepTime, kind: prepKind, imageURL: "../images/VeganGreenChiliMacAndCheese/1.png"});
+        preparationTime += prepTime;
+        console.log("preparationTime = " + preparationTime);
+        if (prepKind == "main") mainTotalTime += prepTime;
+        else sideTotalTime += prepTime;
+        console.log("mainTotalTime = " + mainTotalTime);
+        console.log("sideTotalTime = " + sideTotalTime);
+    };
+
+	$scope.addCookingSteps = function (toCook, cookTime, cookKind) {
+		  $scope.cooking.push({action: toCook, time: cookTime, kind: cookKind, imageURL: "../images/SpicyBuffaloChickpeaWraps/3.png"});
 		  cookingTime += cookTime;
+        console.log("cookingTime = " + cookingTime);
+        if (cookKind == "main") mainTotalTime += cookTime;
+        else sideTotalTime += cookTime;
+        console.log("mainTotalTime = " + mainTotalTime);
+        console.log("sideTotalTime = " + sideTotalTime);
 	};
 
 	$scope.setSteps = function(recipeName) {
@@ -126,11 +142,17 @@ quickyApp.controller('quickyCtrl', function($scope, $http){
 		}
 		prep.preparation = $scope.preparation;
 		prep.cooking = $scope.cooking;
-		  console.log(prep);
-		  console.log(preparationTime);
-		  console.log(cookingTime);
+		  console.log("steps = " + JSON.stringify(prep));
+		  console.log("prep time = " + preparationTime);
+		  console.log("cooking time= " + cookingTime);
+        var totalTime = 0;
+        console.log("side total time = " + sideTotalTime);
+        console.log("main total time = " + mainTotalTime);
+        if (sideTotalTime > mainTotalTime) totalTime = sideTotalTime;
+        else totalTime = mainTotalTime;
+        console.log("total time = " + totalTime);
 
-		$http.post("https://quickyfinal.herokuapp.com/admin/updateSteps/" + recipeName, {steps: prep, prepare: preparationTime, cook: cookingTime }).success(function(data) {
+		$http.post("http://localhost:3000/admin/updateSteps/" + recipeName, {steps: prep, prepare: preparationTime, cook: cookingTime, total: totalTime }).success(function(data) {
 				if (data.status == 301) {
 					 console.log("updateSteps service has failed");
 				}
@@ -168,13 +190,14 @@ quickyApp.controller('ClientHome', function($scope, $http, $location) {
 				} else {
 					 globalData.recipes = data;
 					 $scope.markUserFavorites();
-					 $location.path('/displayByTime/' + time);
+					 $location.path('/displayByTime/' + 0);
 				}
 		  });
 	 }
 })
 
 quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
+    console.log("displaying by time");
 	 $scope.checkIfInFavorites = function(recipeName) {
 		  var size = globalData.userData.favorite.length;
 		  var answer = false;
@@ -185,11 +208,29 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
 		  }
 		  return answer;
 	 }
-	 var time = parseInt($stateParams.time, 10);
-	 $scope.modifiedRecipes = globalData.recipes;
-	 $scope.emptyFavoriteIcon = '../images/favorite.png';
+	 var time = parseInt($stateParams.favorite, 10);
+	 if (time > 0) {
+         console.log("favoritessss");
+         $http.post('http://localhost:3000/admin/getFavorites', {favor: globalData.userData.favorite}).success(function(data) {
+             console.log("user's favorites: " + data);
+             globalData.recipes = data;
+
+             var size = globalData.recipes.length;
+		  var favSize ; globalData.userData.favorite.length;
+		  for (var i = 0; i < size; i++) {
+				globalData.recipes[i].favorite = "favorite";
+		  }
+
+             $scope.modifiedRecipes = data;
+         })
+     } else {
+         console.log("normal display");
+         $scope.modifiedRecipes = globalData.recipes;
+     }
+    $scope.emptyFavoriteIcon = '../images/favorite.png';
 	 $scope.fullFavoriteIcon = '../images/favoritePicked.png';
-	 $scope.addToFavorites = function($index, recipeName) {
+
+    $scope.addToFavorites = function($index, recipeName) {
 		  if ($scope.checkIfInFavorites($scope.modifiedRecipes[$index].name)) {
 				//we want to ckear it from favorites(because it 's already favorited)
 				 $http.post('https://quickyfinal.herokuapp.com/admin/addToFavorites/' + recipeName, {email: globalData.userData.email})

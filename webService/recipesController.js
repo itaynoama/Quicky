@@ -86,7 +86,7 @@ exports.getModifiedRecipes = function(time, callback) {
 	})
 }
 
-exports.updateSteps = function(recipeName, steps, prep, cook, callback) {
+exports.updateSteps = function(recipeName, steps, prep, cook, total, callback) {
     console.log("prepare: " + prep);
     console.log(cook);
 	getRecipe(recipeName, function(doc) {
@@ -95,7 +95,7 @@ exports.updateSteps = function(recipeName, steps, prep, cook, callback) {
             doc.data.set('modified', true);
             doc.data.set('timers.preparation', prep);
             doc.data.set('timers.cooking', cook);
-            doc.data.set('timers.total', cook+prep);
+            doc.data.set('timers.total', total);
             doc.data.save(function(err) {
 			if (err) {
 
@@ -181,6 +181,18 @@ exports.addFavorite = function(recipeName, email, callback) {
 			});
         }
     });
+}
+
+exports.getFavorites = function(favor, callback) {
+    console.log(favor);
+    recipes.find({'name': { $in: favor}}, function(err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(data);
+            callback(data);
+        }
+    })
 }
 
 
