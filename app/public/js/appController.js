@@ -353,7 +353,11 @@ quickyApp.controller('timeBarControl', function($scope, $stateParams) {
     var sideList = createList($scope.kinds.side.preparation, $scope.kinds.side.cooking);
     console.log("main list:\n" + mainList);
     console.log("side list:\n" + sideList);
-    timeKnots.draw("#timeline1", mainList, {horizontalLayout: false, color: "#669", color2: "#a0b91b", height: 600, width:50, class: "pic",  background: "#a32323"});
+    timeKnots.draw("#timeline1", mainList, {horizontalLayout: false, color: "#669", color2: "#a0b91b", height: 400, width:50, class: "mainList",  background: "#a32323"});
+
+    timeKnots.draw("#timeline2", sideList, {horizontalLayout: false, color: "#669", color2: "#a0b91b", height: 400, width:50, class: "sideList",  background: "#a32323"});
+
+    timeKnots.makeTimeController("#timeline3", [{}], {color: "#123", height: 400, width: 50, id: "timer", radius: 10, value: $scope.correctRecipe.timers.total });
 
 })
 

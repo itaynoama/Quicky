@@ -5,11 +5,6 @@ var stoped = true;//indicates the timeController status
 var distancePassed = 0//holds the distance that the play button did on Y Axis
 var timersData = [];
 
-
-
-
-
-
 function start() {
     for (var i = 0; i < timersData.length; i++) {
         d3.select("#" + timersData[i].id + 0 + 0)
@@ -35,68 +30,6 @@ function popCircle(element, idName, index, radius, nextId) {
     }
 }
 
-
-
-//
-//    draw2: function(id, events, options) {
-//        var cfg = {
-//		width: 600,
-//		height: 200,
-//
-//		radius: 10,
-//		lineWidth: 4,
-//		color: "#999",
-//		background: "#FFF",
-//		dateFormat: "%Y/%m/%d %H:%M:%S",
-//		horizontalLayout: true,
-//		showLabels: false,
-//		addNow: false,
-//		seriesColor: d3.scale.category20(),
-//		dateDimension: false
-//	 };
-//
-//
-//	 //default configuration overrid
-//	 if(options != undefined){
-//		for(var i in options){
-//		  cfg[i] = options[i];
-//		}
-//	 }
-//	 if(cfg.addNow != false){
-//		events.push({date: new Date(), name: cfg.addNowLabel || "Today"});
-//	 }
-//	 var svg = d3.select(id).select("svg");
-//	 //Calculate value in terms of timestamps
-//    var timestamps = events.map(function(d){return  d.value});
-//    var maxValue = d3.max(timestamps);
-//    var minValue = d3.min(timestamps);
-//
-//	 var margin = (d3.max(events.map(function(d){return d.radius})) || cfg.radius)*1.5+cfg.lineWidth;
-//	 var step = (cfg.height-2*margin)/maxValue;
-//	 var series = [];
-//	 if(maxValue == minValue){step = 0;if(cfg.horizontalLayout){margin=cfg.width/2}else{margin=cfg.height/2}}
-//
-//	 linePrevious = {//the position of the circles
-//		x1 : null,
-//		x2 : null,
-//		y1 : null,
-//		y2 : null
-//	 }
-//
-//
-//	 svg.selectAll("circle")
-//     .each(function(d, i) {
-//         d3.select(this)
-//         .style("filter", function(){return "url(#" + d.class + ")"}).transition()//changing circle hover transition
-//		.duration(100).attr("r",  function(){return Math.floor(cfg.radius*1.7)})
-//         .style("z-index", 999);
-//     });
-//
-//
-//
-//
-//    }
-
 var timeKnots = {
    makeTimeController: function(id, data, options) {
     var svg = d3.select(id).append('svg').attr("width", options.width).attr("height", options.height);
@@ -106,12 +39,10 @@ var timeKnots = {
     .attr("id", options.id + 0)
     .attr("class", "timeline-line")
 		.attr("x1", function(){
-							 var ret = Math.floor(options.width/2)
-							 ret
-							 return ret
+							 return Math.floor(options.width/2);
 							 })
 	 .attr("x2", function(){
-							 return Math.floor(options.width/2)
+							 return Math.floor(options.width/2);
 							 })
 	 .attr("y1", function(){
                             return margin;
@@ -120,19 +51,19 @@ var timeKnots = {
                             return options.height - margin;
 							 })
 	 .style("stroke", function(){
-							 return options.color
+							 return options.color;
                             })
      .style("stroke-width", 4);
 
     svg.append("filter")
     .attr("id",  options.id + 0 + 0)
       .append("feImage")
-      .attr("xlink:href", "./playBtn.png")
-      .attr("r", 17)
+      .attr("xlink:href", "../images/playBtn.png")
+      .attr("r", options.radius*1.5)
       .attr("preserveAspectRatio", "xMidYMid slice");
 
     var endPoint = options.height - margin;
-    var step = (endPoint - margin)/(options.value*1000);
+    var step = (endPoint - margin)/(options.value);
 
     var circle = svg.append("circle");
     circle.attr("id", options.id)
@@ -155,10 +86,11 @@ var timeKnots = {
     circle.on("click", function() {
         if (stoped) {//need to resume the timer
             var left = endPoint - distancePassed;
-            console.log(left);
-            console.log(Math.floor(left*step*1000));
+            var elapsedTime = left/step;
+            console.log("left: " + left);
+            console.log(Math.floor(elapsedTime*1000));
             d3.select("#" + this.id)
-            .transition().duration(Math.floor(left*step*1000))
+            .transition().duration(Math.floor(elapsedTime*1000))
             .ease("linear")
             .attr("cy", endPoint);
             timeKnots.stopAndResume();
@@ -193,13 +125,10 @@ draw: function(id, events, options){
 		background: "#FFF",
 		horizontalLayout: true,
 		showLabels: false,
-		addNow: false,
 		dateDimension: false
 	 };
 
     timersData.push({id: options.class, amount:  events.length});
-
-    console.log(timersData);
 
 	 //default configuration override
 	 if(options != undefined){
@@ -207,10 +136,7 @@ draw: function(id, events, options){
 
 		  cfg[i] = options[i];
 		}
-	 }
-	 if(cfg.addNow != false){
-		events.push({date: new Date(), name: cfg.addNowLabel || "Today"});
-	 }
+
 	 var tip = d3.select(id)
 	 .append('div')
 	 .style("opacity", 0)
@@ -225,7 +151,8 @@ draw: function(id, events, options){
 	 var svg = d3.select(id).append('svg').attr("width", cfg.width).attr("height", cfg.height);
 	 //Calculate value in terms of timestamps
     var timestamps = events.map(function(d){return  d.value});
-    var maxValue = d3.max(timestamps);
+    //var maxValue = d3.max(timestamps);
+    maxValue = d3.sum(timestamps);
     var minValue = 0;
 
 	 var margin = (d3.max(events.map(function(d){return d.radius})) || cfg.radius)*1.5+cfg.lineWidth;
@@ -241,42 +168,53 @@ draw: function(id, events, options){
       .attr("xlink:href", function(d) {
           return d.img;
       })
-      .attr("r", 17)
+      .attr("r", function(d) {
+          if (d.radius != "undefined") return d.radius*1.5;
+          else return cfg.radius8*1.5;
+      })
       .attr("preserveAspectRatio", "xMidYMid slice");
 
 
-	 linePrevious = {//the position of the circles
-		x1 : null,
-		x2 : null,
-		y1 : null,
-		y2 : null
-	 }
+
 
 	 svg.selectAll("line")
 	 .data(events).enter().append("line")
 	 .attr("class", "timeline-line")
 		.attr("x1", function(d){
-							 var ret = Math.floor(cfg.width/2)
-							 linePrevious.x1 = ret
-							 return ret
+							 return ret = Math.floor(cfg.width/2)
+							 //linePrevious.x1 = ret
+							 //return ret
 							 })
 	 .attr("x2", function(d){
-							 if (linePrevious.x1 != null){
-								  return linePrevious.x1
-							 }
+//							 if (linePrevious.x1 != null){
+//								  return linePrevious.x1
+//							 }
 							 return Math.floor(cfg.width/2)
 							 })
 	 .attr("y1", function(d, i){
-         var datum;
+         var datum = 0;
          if (i == 0) {
-             datum = 0;
+             //console.log("returning 0");
+             return margin;
+             //datum = 0;
          } else {
-             datum = events[i-1].value;
-         }
 
-								var ret = Math.floor(step*(datum - minValue)) + margin
-							 linePrevious.y1 = ret
-							 return ret
+            // console.log("returning y2: " + linePrevious.y2);
+            // console.log(linePrevious.y2);
+//             var ret = linePrevious.y2;
+//             console.log("ret = "  + ret);
+//             return ret;
+             for (var j = 0; j < i; j++) {
+                 datum += events[j].value;
+             }
+             //datum = events[i-1].value;
+         }
+         var ret = Math.floor(step*(datum - minValue)) + margin;
+         return ret;
+//console.log("y2 = " + linePrevious.y2);
+//								var ret = Math.floor(step*(datum - minValue)) + linePrevious.y1;
+//							 linePrevious.y1 = ret
+//							 return ret
 							 })
 	 .attr("y2", function(d, i){
 //                            if (d.value == maxValue) {
@@ -286,8 +224,19 @@ draw: function(id, events, options){
 //                                var datum =  events[i].value;
 //							 return Math.floor(step*(datum - minValue)) + margin
 //                            }
-                            var datum =  events[i].value;
-							 return Math.floor(step*(datum - minValue)) + margin
+         var datum = 0;
+         //console.log(linePrevious.y2);
+         if (i == 0) {
+             datum = d.value;
+         } else {
+             for (var j = 0; j <=i; j++){
+                 datum += events[j].value;
+             }
+             //datum = d.value + events[i-1].value;
+         }
+                            //var datum =  d.value + events[i-1].value;
+							 var ret = Math.floor(step*(datum - minValue)) + margin;
+         return ret;
 							 })
 	 .style("stroke", function(d){
 							 if(d.color != undefined){
@@ -295,60 +244,75 @@ draw: function(id, events, options){
 							 }
 							 return cfg.color})
      .style("stroke-width", cfg.lineWidth)
-     .style("z-index", -1);
+     //.style("z-index", -1);
 //     .style("transition", "transform .1s ease-out")
 //     .style("-webkit-transition", "-webkit-transform .6s ease-out")
 
-           var y1, y2;
+     currentLine = {//the position of the circles
+		y1 : 0,
+		y2 : 0
+	 }
+           //var y1, y2;
      for (var i = 0; i < events.length; i++) {
          svg.append("line")
          .attr("class", "timeline-line")
          .attr("id", cfg.class +i + i)
 		.attr("x1", function(){
-							 var ret = Math.floor(cfg.width/2)
-							 linePrevious.x1 = ret
-							 return ret
+							 return ret = Math.floor(cfg.width/2)
+							 //linePrevious.x1 = ret
+							 //return ret
 							 })
 	 .attr("x2", function(){
-							 if (linePrevious.x1 != null){
-								  return linePrevious.x1
-							 }
+//							 if (linePrevious.x1 != null){
+//								  return linePrevious.x1
+//							 }
 							 return Math.floor(cfg.width/2)
 							 })
 	 .attr("y1", function(){
-             var datum;
+             var datum = 0;
              if (i == 0) {
-                 datum = 0;
+                 currentLine.y1 = margin;
+                 return margin;
              } else {
-                 datum = events[i - 1].value;
+                 for (var j = 0; j < i; j++) {
+                     datum += events[j].value;
+                 }
              }
-								var ret = Math.floor(step*(datum - minValue)) + margin
-							 linePrevious.y1 = ret
-                             y1 = ret;
-							 return ret
+								var ret = Math.floor(step*(datum - minValue)) + margin;
+							 currentLine.y1 = ret;
+							 return ret;
 							 })
 	 .attr("y2", function(){
-                            var datum = events[i].value;
-							 y2 = Math.floor(step*(datum - minValue))+ margin;
-                            return y2;
+             var datum = 0;
+             if (i == 0) {
+                 datum = events[i].value;
+             } else {
+                 for (var j = 0; j <= i; j++) {
+                     datum += events[j].value;
+                 }
+             }
+							 var ret = Math.floor(step*(datum - minValue))+ margin;
+                            currentLine.y2 = ret;
+             return ret;
 							 })
     .style("stroke", function(){
          return cfg.color2})
          .style("z-index", -1)
         .style("stroke-width", cfg.lineWidth + 2 )
-     .style("stroke-dasharray", y2 - y1)
-     .style("stroke-dashoffset", y2 - y1)
-     .style("animation", "dash " + events[i].value/2 + "s linear forwards")
+     .style("stroke-dasharray", currentLine.y2 - currentLine.y1)
+     .style("stroke-dashoffset", currentLine.y2 - currentLine.y1)
+     .style("animation", "dash " + events[i].value + "s linear forwards")
          .style("animation-play-state", "paused");
      }
 
 
+         //linePrevious.y1 = 0;
 	 svg.selectAll("circle")
 	 .data(events).enter()
 	 .append("circle")
 	 .attr("class", "timeline-event")
      .attr("id", function(d, i) {
-         return cfg.class + i + i + i
+         return cfg.class + i + i + i;
      })
 	 .attr("r", function(d){if(d.radius != undefined){return d.radius} return cfg.radius})
 	 .style("stroke", function(d){
@@ -363,7 +327,17 @@ draw: function(id, events, options){
 	 .attr("cy", function(d, i){
 
 		  var datum = d.value;
-		  return Math.floor(step*(datum - minValue) + margin);
+
+         if (i == 0) {
+             datum = d.value;
+         } else {
+             for (var j = 0; j < i; j++) {
+                 datum += events[j].value;
+             }
+         }
+		  var ret = Math.floor(step*(datum - minValue) + margin);
+
+         return ret;
 	 })
 	 .attr("cx", function(d){
 		  return Math.floor(cfg.width/2);
@@ -376,10 +350,11 @@ draw: function(id, events, options){
           elem.addEventListener("webkitAnimationEnd", popCircle(this, cfg.class, i, cfg.radius, last));
         }
 
-  },
+  }
+},
 
-    stopAndResume: function() {//data holds an array of element id and amount
-    if (timersData != undefined) {
+    stopAndResume: function() {
+    if (timersData != undefined) {//data holds an array of element id and amount
         if (paused.length != 0) {//run all the paused ones and return
             var length = paused.length;
             for (var i = 0; i < length; i ++) {
