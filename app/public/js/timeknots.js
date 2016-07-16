@@ -170,7 +170,7 @@ draw: function(id, events, options){
       })
       .attr("r", function(d) {
           if (d.radius != "undefined") return d.radius*1.5;
-          else return cfg.radius8*1.5;
+          else return cfg.radius*1.5;
       })
       .attr("preserveAspectRatio", "xMidYMid slice");
 
@@ -314,12 +314,12 @@ draw: function(id, events, options){
      .attr("id", function(d, i) {
          return cfg.class + i + i + i;
      })
-	 .attr("r", function(d){if(d.radius != undefined){return d.radius} return cfg.radius})
+	 .attr("r", function(d){if(d.radius != undefined){return d.radius} return cfg.radius/5})
 	 .style("stroke", function(d){
 						  if(d.color != undefined){
 							 return d.color
 						  }
-						  return cfg.color}
+						  return cfg.background}
 	 )
 	 .style("stroke-width", function(d){if(d.lineWidth != undefined){return d.lineWidth} return cfg.lineWidth})
 	 .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.background})
