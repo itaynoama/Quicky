@@ -232,6 +232,90 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 
+/******* timebar template ******/
+#timeline1 {
+    width: 20px;
+    margin-left: 28%;
+    display: inline-block;
+}
+#timeline2 {
+    width: 20px;
+    margin-left: 26%;
+    display: inline-block;
+}
+#timeline3 {
+    width: 20px;
+    margin-left: -50%;
+    display: inline-block;
+}
+.span6 > .panels > .panel {
+    width: 25% !important;
+    margin-left: 8% !important;
+    position: relative;
+    top: 45px;
+    left: 16%;
+    background: none !important;
+}
+.span6 > .panels > .panel-default {
+    border: 2px solid #FFFF00;
+    float: left;
+}
+.panels > .panel-default > .panel-body {
+    padding: 6px !important;
+    text-align: center;
+}
+.span6 > .timeline {
+    position: relative;
+    top: 100px;
+    right: 21%;
+    width: 80%;
+}
+.span6 > .panels {
+   margin-left: 10%;
+}
+.coverScreen {
+    background: linear-gradient(#fffef3, #ffc572);
+    height: 748px;
+}
+.span6 > .panels > .side {
+    border: 2px solid #000;
+}
+.finishRecipe {
+    width: 100%;
+}
+.finishRecipe > img {
+    width: 32%;
+    height: 125px;
+    position: relative;
+    top: 100px;
+    left: 34%;
+    border-radius: 52%;
+    border: 4px solid #fff;
+}
+.finishRecipe > .divider {
+    background: #fff;
+    height: 1px;
+    width: 79%;
+    margin-top: 36%;
+}
+.finishRecipe > p {
+    color: #fff;
+    font-size: 20px;
+    position: relative;
+    left: 43%;
+    top: -37px;
+}
+.finishRecipe > li {
+    list-style-type: none;
+}
+.finishRecipe > li > a {
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    top: -18px;
+    left: 52%;
+}
+
 /******* timebar animation ******/
 @keyframes dash {
   to {
@@ -289,7 +373,7 @@ h2 {
     color: #fff !important;
 }
 .description {
-    width: 43% !important;
+    width: 55% !important;
 }
 
 .description > input[type=text] {
@@ -492,6 +576,17 @@ h2 {
     .frame {
         width: 80%;
     }
+    #timeline2 {
+        margin-left: 25%;
+    }
+    .finishRecipe > .favorite {
+        margin-top: 0;
+        margin-left: 33%;
+        margin-top: -6%;
+    }
+    .panels > .panel-default > .panel-body {
+        font-size: 10px;
+    }
 }
 @media (max-width: 400px) {
     .wrapper {
@@ -600,7 +695,7 @@ h2 {
         background: #fff;
     }
     .ingredient > .frame {
-        margin-top: -41%;
+        margin-top: -46%;
         position: relative;
     }
     .ingredient > .frame h2 {
@@ -660,5 +755,23 @@ h2 {
     .cover1 > .mainCatgry {
         margin-left: -11%;
     }
+    #timeline2 {
+        margin-left: 25%;
+    }
+    .finishRecipe > .favorite {
+        margin-top: 0;
+        margin-left: 33%;
+        margin-top: -6%;
+    }
+    .panels > .panel-default > .panel-body {
+        font-size: 10px;
+    }
+    .finishRecipe > .divider {
+        margin-top: 39%;
+    }
 }
-
+@media (min-width: 300px) and (max-width: 399px) {
+    .span6 > .timeline {
+        width: 82%;
+    }
+}

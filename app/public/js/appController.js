@@ -309,7 +309,7 @@ quickyApp.controller('recipeIngredients', function($scope, $stateParams, $locati
     }
 })
 
-quickyApp.controller('timeBarControl', function($scope, $stateParams) {
+quickyApp.controller('timeBarControl', function($scope, $stateParams, $http) {
     var recipes = globalData.recipes;
 	var size = recipes.length;
 	for (var i = 0; i < size; i++) {
@@ -353,11 +353,56 @@ quickyApp.controller('timeBarControl', function($scope, $stateParams) {
     var sideList = createList($scope.kinds.side.preparation, $scope.kinds.side.cooking);
     console.log("main list:\n" + mainList);
     console.log("side list:\n" + sideList);
-    timeKnots.draw("#timeline1", mainList, {horizontalLayout: false, color: "#669", color2: "#a0b91b", height: 400, width:50, class: "mainList",  background: "#a32323"});
+    timeKnots.draw("#timeline1", mainList, {horizontalLayout: false, color: "#FFFF00", color2: "#a0b91b", height: 400, width:50, class: "mainList",  background: "#a32323"});
 
-    timeKnots.draw("#timeline2", sideList, {horizontalLayout: false, color: "#669", color2: "#a0b91b", height: 400, width:50, class: "sideList",  background: "#a32323"});
+    timeKnots.draw("#timeline2", sideList, {horizontalLayout: false, color: "#FF0000", color2: "#a0b91b", height: 400, width:50, class: "sideList",  background: "#a32323"});
 
-    timeKnots.makeTimeController("#timeline3", [{}], {color: "#669", height: 400, width: 50, id: "timer", radius: 10, value: $scope.correctRecipe.timers.total });
+    timeKnots.makeTimeController("#timeline3", [{}], {color: "#2f972f", height: 400, width: 50, id: "timer", radius: 10, value: $scope.correctRecipe.timers.total });
 
+//    $scope.getRecipeIndex = function(recipeName) {
+//        var size = globalData.recipes.length;
+//        for (var i = 0; i < size; i++) {
+//            if (globalData.recipes.recipes[i].name == recipeName) {
+//                 return i;
+//            }
+//        }
+//    }
+//    $scope.checkIfInFavorites = function(recipeName) {
+//		  var size = globalData.userData.favorite.length;
+//		  var answer = false;
+//		  for (var i = 0; i < size; i++) {
+//				if (globalData.userData.favorite[i] == recipeName) {
+//					 answer = true;
+//				}
+//		  }
+//		  return answer;
+//	 }
+//     $scope.addToFavorites = function(recipeName) {
+//		  if ($scope.checkIfInFavorites(recipeName)) {
+//				//we want to ckear it from favorites(because it 's already favorited)
+//				 $http.post('https://quickyfinal.herokuapp.com/admin/addToFavorites/' + recipeName, {email: globalData.userData.email})
+//					  .success(function(data) {
+//						  if (data.status == 301) {
+//								console.log('addFavorite service had failed');
+//						  }
+//						  globalData.recipes[getRecipeIndex(recipeName)].favorite = 'notFavorite';
+//						  $scope.correctRecipe.favorite = 'notFavorite';
+//						  var indexOfRecipe = globalData.userData.favorite.indexOf(recipeName);
+//						  if (indexOfRecipe > -1) {
+//								globalData.userData.favorite.splice(indexOfRecipe, 1);
+//						  }
+//					 });
+//		  }else {
+//				 $http.post('https://quickyfinal.herokuapp.com/admin/addToFavorites/' + recipeName, {email: globalData.userData.email})
+//					  .success(function(data) {
+//						  if (data.status == 301) {
+//								console.log('addFavorite service had failed');
+//						  }
+//						  globalData.recipes[getRecipeIndex(recipeName)].favorite = 'favorite';
+//						  $scope.correctRecipe.favorite = 'favorite';
+//						  globalData.userData.favorite.push(recipeName);
+//					 });
+//		  }
+//	 }
 })
 

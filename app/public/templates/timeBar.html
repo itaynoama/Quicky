@@ -1,43 +1,29 @@
-
-<div class="fluid-row">
+<div class="fluid-row coverScreen">
     <div class="span6">
-<!--
-     <h2>My schedule</h2>
-     <h5>Imaginary schedule in a vertical layout</h5>
-     <button onclick="start()">start</button>
-     <button onclick="timeKnots.stopAndResume()">stop/resume</button>
--->
-     <div id="timeline1" style="width:100px; height: 650px; margin-left: 20%; display: inline-block;"></div>
-
-     <div id="timeline2" style="width:100px; height: 650px; margin-left: 20%; display: inline-block;"></div>
-
-     <div id="timeline3" style="width:100px; height: 650px; margin-left: 20%; display: inline-block;"></div>
-
+       <div class="panels">
+            <div class="panel panel-default side">
+                <div class="panel-body">{{correctRecipe.ingredients.side.kind}}</div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">{{correctRecipe.ingredients.main.kind}}</div>
+            </div>
+        </div>
+        <div class="timeline">
+            <div id="timeline3"></div>
+            <div id="timeline1"></div>
+            <div id="timeline2"></div>
+        </div>
+        <div class="finishRecipe">
+            <img src="{{correctRecipe.imageURL}}" alt="current recipe">
+            <div class="divider"></div>
+            <p>DONE!</p>
+            <div class="favorite">
+               <div ui-view>
+                    <img ng-src="../images/{{correctRecipe.favorite}}.png" alt="favorite" ng-click="addToFavorites($index, recipe.name)">
+                </div>
+            </div>
+            <li><a href="#">My Recpies</a></li>
+        </div>
     </div>
 </div>
-<!--
-<script type="text/javascript">
 
-
-        var mySchedule2 = [{value:3 , img: "http://i.imgur.com/7Nlcay7.jpg", time: 1},
-      {value:6 , img: "http://image.flaticon.com/icons/svg/23/23772.svg", time: 2},
-      {value:10 , img: "http://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Day_of_the_Fight_title.jpg/215px-Day_of_the_Fight_title.jpg", time: 3},
-      {value:16 , img: "http://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Day_of_the_Fight_title.jpg/215px-Day_of_the_Fight_title.jpg", time: 4},
-    ];
-
-    function stopIt() {
-        stopAndResume()
-    }
-
-    timeKnots.draw("#timeline1", mySchedule, {horizontalLayout: false, color: "#669", color2: "#a0b91b", height: 400, width:50, class: "pic",  background: "#a32323"});
-
-    timeKnots.draw("#timeline2", mySchedule2, {horizontalLayout: false, color: "#669", color2: "#a0b91b", height: 400, width:50, class: "picture",  background: "#a32323"});
-
-        timeKnots.makeTimeController("#timeline3", [{}], {color: "#123", height: 400, width: 50, id: "timer", radius: 10, value: 20 })
-        function start() {
-            TimeKnots.draw2("#timeline2", mySchedule, {horizontalLayout: false, color: "#a0b91b", height: 600, width:50, background: "#a32323"})
-            TimeKnots.start("pic0");
-        }
-
-</script>
--->
