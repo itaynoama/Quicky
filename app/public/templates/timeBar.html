@@ -19,7 +19,7 @@
             <p>DONE!</p>
             <div class="favorite">
                <div ui-view>
-                    <img ng-src="../images/{{correctRecipe.favorite}}.png" alt="favorite" ng-click="addToFavorites()">
+                    <img ng-src="./images/{{correctRecipe.favorite}}.png" alt="favorite" ng-click="addToFavorites()">
                 </div>
             </div>
             <li><a ui-sref="recipesByTime({favorite: '1'})">My Recpies</a></li>

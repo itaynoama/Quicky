@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var recipes = require('./newRecipeSchema.js');
 var clients = require('./clientSchema.js');
 
+//increaing likes to recipe
 function increaseLikes(recipeName, callback) {
     console.log("increasing likes");
 	getRecipe(recipeName, function(doc) {
-        console.log("increasing likes (before raising): " + doc.data.likes);
         if (doc.status) {
             var query = doc.data.update({$inc: {likes: 1}});
             query.exec(function(err) {
@@ -23,9 +23,9 @@ function increaseLikes(recipeName, callback) {
 	});
 }
 
+//decreasing like to recipe
 function decreaseLikes(recipeName, callback) {
 	getRecipe(recipeName, function(doc) {
-        console.log("decreasing likes (before decreasing): " + doc.data.likes);
         if (doc.data) {
             if (doc.data.likes == 0) {
             callback();
@@ -46,6 +46,7 @@ function decreaseLikes(recipeName, callback) {
 	});
 }
 
+//fetching specific recipe
 function getRecipe(recipeName, callback) {
 	var query = recipes.findOne().where('name', recipeName);
     query.exec(function(err, doc){
@@ -61,6 +62,7 @@ function getRecipe(recipeName, callback) {
 
 exports.getRecipe = getRecipe;
 
+//getting all the recipes that the admin still didn't make steps
 exports.getUnmodifiedRecipes = function(req, res) {
 	var query = recipes.find();
 	query.where('modified', false).select('-_id');
@@ -74,6 +76,7 @@ exports.getUnmodifiedRecipes = function(req, res) {
 	});
 }
 
+//the recipes that are ready to display for the client
 exports.getModifiedRecipes = function(time, callback) {
 	var query = recipes.find();
 	query.where('timers.total', time).select('-_id');
@@ -86,9 +89,8 @@ exports.getModifiedRecipes = function(time, callback) {
 	})
 }
 
+//updating the steps that the admin has made for specific recipe
 exports.updateSteps = function(recipeName, steps, prep, cook, total, callback) {
-    console.log("prepare: " + prep);
-    console.log(cook);
 	getRecipe(recipeName, function(doc) {
         if (doc.status) {
             doc.data.set('steps', steps);
@@ -111,6 +113,7 @@ exports.updateSteps = function(recipeName, steps, prep, cook, total, callback) {
 	});
 }
 
+//fetching cleint data
 function getClient(email, callback) {
 	var query = clients.findOne().where('email', email);
 	query.exec(function(err, doc) {
@@ -143,6 +146,7 @@ function getClient(email, callback) {
 
 exports.getClient = getClient;
 
+//add recipe to client's favorites
 exports.addFavorite = function(recipeName, email, callback) {
     getClient(email, function(answer) {
         if (!answer.type) {
@@ -151,7 +155,6 @@ exports.addFavorite = function(recipeName, email, callback) {
             var client = answer.data;
             var size = client.favorite.length;
             var exist = false
-            console.log("client favorites: " + client.favorite);
             for (var i = 0; i < size; i++) {
                 if (client.favorite[i] == recipeName) {
                     exist = true;
@@ -183,8 +186,10 @@ exports.addFavorite = function(recipeName, email, callback) {
     });
 }
 
+//receiving "favor" = name list of client's favorits recipes
+//retreiving those favorites recipes
+//"favor" is an Array
 exports.getFavorites = function(favor, callback) {
-    console.log(favor);
     recipes.find({'name': { $in: favor}}, function(err, data) {
         if (err) {
             console.log(err);
