@@ -80,6 +80,7 @@ nav > section > p > span {
     margin-left: 13%;
     margin-top: 1%;
     border-style: none;
+    box-shadow: none;
 }
 .btn-success {
    background: url(../images/search.png) no-repeat !important;
