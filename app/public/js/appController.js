@@ -357,7 +357,7 @@ quickyApp.controller('timeBarControl', function($scope, $stateParams) {
 
     timeKnots.draw("#timeline2", sideList, {horizontalLayout: false, color: "#669", color2: "#a0b91b", height: 400, width:50, class: "sideList",  background: "#a32323"});
 
-    timeKnots.makeTimeController("#timeline3", [{}], {color: "#123", height: 400, width: 50, id: "timer", radius: 10, value: $scope.correctRecipe.timers.total });
+    timeKnots.makeTimeController("#timeline3", [{}], {color: "#669", height: 400, width: 50, id: "timer", radius: 10, value: $scope.correctRecipe.timers.total });
 
 })
 
