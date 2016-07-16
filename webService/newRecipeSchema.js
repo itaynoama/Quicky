@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
+//These schemes allow us to build the actual "Recipe" schema without any mistakes.
+//They have no meaning outside of this page
+
 var ingredientsSchema = new schema({
 	name:String,
 	quantity:String
@@ -8,12 +11,15 @@ var ingredientsSchema = new schema({
 
 var actionSchema = new schema({
 	action:String,
-	time:Number
+	time:Number,
+    kind:String,
+    imageURL:String
 });
 
 
+//This is the actual real schema from this page/ which builted from the two schemas above
 
-var recipeSchema = new schema({
+var Recipe = new schema({
 	name: {type:String, required:true, index:1, unique:true},
 	displayName:String,
 	description: {type:String, required:true},
@@ -43,6 +49,6 @@ var recipeSchema = new schema({
 	modified:Boolean
 }, {collection: "Recipes"});
 
-var recipes = mongoose.model('Recipes', recipeSchema);
+var recipes = mongoose.model('Recipes', Recipe);
 
 module.exports = recipes;
