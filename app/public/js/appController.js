@@ -258,7 +258,7 @@ quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
         }
     }
 
-     //------Filter By Category--------
+    //------Filter By Category--------
     $scope.showOnlyEntree = function() {
         $scope.modifiedRecipes = globalData.recipes.slice(0);
         var size = globalData.recipes.length;
@@ -434,4 +434,3 @@ quickyApp.controller('timeBarControl', function($scope, $stateParams, $http) {
         }
     }
 })
-

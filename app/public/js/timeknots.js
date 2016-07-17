@@ -151,9 +151,6 @@ draw: function(id, events, options){
     })
     .attr("preserveAspectRatio", "xMidYMid slice");
 
-
-
-
     svg.selectAll("line")
     .data(events).enter().append("line")
     .attr("class", "timeline-line")
