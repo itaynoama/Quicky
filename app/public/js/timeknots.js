@@ -56,7 +56,7 @@ var timeKnots = {
         svg.append("filter")
         .attr("id",  options.id + 0 + 0)
         .append("feImage")
-        .attr("xlink:href", "../images/playBtn.png")
+        .attr("xlink:href", "./images/playBtn.png")
         .attr("r", options.radius*1.5)
         .attr("preserveAspectRatio", "xMidYMid slice");
 
