@@ -1,6 +1,6 @@
 #Quicky vegan API
- The purpose of this Web Service is to manage all the recipes that appears in the DB.
- In manage to work with those functions, you need to add a "Callback" functions to handle the data response
+The purpose of this Web Service is to manage all the recipes that appears in the DB.<br/>
+In manage to work with those functions, you need to add a "Callback" functions to handle the data response
 
 ## This service contains the services above:
 
@@ -344,3 +344,5 @@ https://quickyfinal.herokuapp.com/admin/getFavorites?favor=Vietnamese_spring_rol
 
 []
 ```
+# Authors
+Itay Noama & Or Ben David
