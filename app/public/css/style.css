@@ -135,7 +135,6 @@ nav > section > p > span {
 	width: 80%;
 	left: 10%;
 	height: 80%
-
 }
 .leftRange {
 	position: relative;
@@ -151,7 +150,6 @@ nav > section > p > span {
 	height: 100%;
     color: #fff;
 }
-
 .upLeft {
 	position: absolute;
 }
@@ -440,6 +438,7 @@ h2 {
     left: 26%;
 }
 
+/******* Media screen *******/
 
 @media (min-width: 992px) {
     .col-md-4 {
