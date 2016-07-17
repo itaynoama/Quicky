@@ -1,13 +1,20 @@
 var quickyApp = angular.module('quicky',["ui.router"]);
 
 var globalData = {
-
+    lastPickedRecipe : null
 
 };
 
 //time picking display
 function show_value(x) {
     document.getElementById("slider_value").innerHTML=x;
+}
+
+//to support a small bug when pressing "my recipe"
+//at "TimeBar" template and then pressing "back"
+//in the browser
+var lastModifiedRecipe = {
+
 }
 
 
@@ -192,6 +199,7 @@ quickyApp.controller('ClientHome', function($scope, $http, $location) {
 
 quickyApp.controller('displayByTime', function($scope, $http, $stateParams) {
 
+
     $scope.checkIfInFavorites = function(recipeName) {
         var size = globalData.userData.favorite.length;
         var answer = false;
@@ -324,6 +332,7 @@ quickyApp.controller('recipeIngredients', function($scope, $stateParams, $locati
 	var size = globalData.recipes.length;
 	for (var i = 0; i < size; i++) {
 		if (recipes[i].name === $stateParams.recipeName) {
+            globalData.lastPickedRecipe = recipes[i];
 			$scope.correctRecipe = recipes[i];
 			break;
 		}
@@ -336,14 +345,7 @@ quickyApp.controller('recipeIngredients', function($scope, $stateParams, $locati
 
 //this creates the last page where we can see the timeBars
 quickyApp.controller('timeBarControl', function($scope, $stateParams, $http) {
-    var recipes = globalData.recipes;
-	var size = recipes.length;
-	for (var i = 0; i < size; i++) {
-		if (recipes[i].name === $stateParams.recipeName) {
-			$scope.correctRecipe = recipes[i];
-			break;
-		}
-	}
+    $scope.correctRecipe = globalData.lastPickedRecipe;
     function createList(prep, cook) {
         var array = [];
         for (var i of prep) {
